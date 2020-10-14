@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home } from './components/Home'
+import Home from './components/Home'
 import { Test } from './components/Test'
 import { Router, Link } from "@reach/router";
 

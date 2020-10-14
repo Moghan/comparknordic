@@ -20,3 +20,7 @@
     - production bucket distributed
     - custom domain - www.comparknordic.com, comparknordic.com
     - certificate for https through Certificate Manager
+* Route 53
+    - beta.comparknordic.com (http)
+    - comparknordic.com, www.comparknordic.com
+* Reach router
