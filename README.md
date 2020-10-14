@@ -11,3 +11,7 @@
 * Static website hosting
     - dev (http://beta.comparknordic.com.s3-website.eu-north-1.amazonaws.com)
     - prod (http://www.comparknordic.com.s3-website.eu-north-1.amazonaws.com)
+* CodeBuild
+    - push to main branch trigger build and deploy to beta bucket
+    - push to release branch trigger build and deploy to production bucket
+    - *(if changes exists in /client folder)*
