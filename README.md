@@ -1,4 +1,5 @@
-# Compark Nordic
+# Compark Nordic ![Build Status](https://codebuild.eu-north-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieHhwTzQ5b1N0dmVYWTBScEVPa2JJR053amEyREs1VCtEWWpLVjBvbTlNVFVGWVdNL2l2anR0R3Q5NEp4b0Y1cXRXamp0NDZBUlA4andQMXNGTFhsUUpzPSIsIml2UGFyYW1ldGVyU3BlYyI6ImxLdmZZaWtISm5yUi80ZXAiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+
 
 *the experience begins in the parking lot*
 
