@@ -13,5 +13,9 @@
     - prod (http://www.comparknordic.com.s3-website.eu-north-1.amazonaws.com)
 * CodeBuild
     - push to main branch trigger build and deploy to beta bucket
-    - push to release branch trigger build and deploy to production bucket
-    - *(if changes exists in /client folder)*
+        - *(if changes exists in /client folder)*
+    - manual trigger to build and deploy release branch to production bucket
+* CloudFront
+    - production bucket distributed
+    - custom domain - www.comparknordic.com, comparknordic.com
+    - certificate for https through Certificate Manager
