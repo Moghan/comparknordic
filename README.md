@@ -24,3 +24,6 @@
     - beta.comparknordic.com (http)
     - comparknordic.com, www.comparknordic.com
 * Reach router
+* Class diagram
+    - Lucidchart(account needed) - https://lucid.app/invitations/accept/cd21725d-9814-43cf-946a-6f6ccf97830c
+    - TODO: Download and add png-file to repo
