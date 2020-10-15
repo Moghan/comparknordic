@@ -1,8 +1,9 @@
 import React from 'react';
 import Home from './components/Home'
-import { Test } from './components/Test'
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 import AppBar from './components/AppBar'
+import About from './components/About'
+import Contact from './components/Contact'
 
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
       <AppBar />
       <Router>
         <Home path="/" />
-        <Test path="/test" />
+        <About path="/about" />
+        <Contact path="/contact" />
       </Router>
     </>
   );

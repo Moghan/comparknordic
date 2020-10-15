@@ -10,6 +10,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from '@reach/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +38,6 @@ export default function TemporaryDrawer() {
       return;
     }
 
-    // setState({ ...state, [anchor]: open });
     setOpen(open)
   };
 
@@ -48,7 +48,7 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-          <ListItem button key={'About'}>
+          <ListItem button key={'About'} component={Link} to={'/about'}>
             <ListItemIcon>
                 <InfoIcon />
             </ListItemIcon>
@@ -57,7 +57,7 @@ export default function TemporaryDrawer() {
       </List>
       <Divider />
       <List>
-          <ListItem button key={'Contact'}>
+          <ListItem button key={'Contact'} component={Link} to={'/contact'}>
             <ListItemIcon>
                 <ContactsIcon />
             </ListItemIcon>
