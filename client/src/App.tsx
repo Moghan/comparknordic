@@ -2,18 +2,13 @@ import React from 'react';
 import Home from './components/Home'
 import { Test } from './components/Test'
 import { Router, Link } from "@reach/router";
+import AppBar from './components/AppBar'
 
 
 function App() {
   return (
     <>
-      <div>
-        <h1>Compark Nordic</h1>
-        <nav>
-          <Link to="/">Home</Link>{" "}
-          <Link to="/test">Test</Link>
-        </nav>
-      </div>
+      <AppBar />
       <Router>
         <Home path="/" />
         <Test path="/test" />
