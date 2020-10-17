@@ -27,13 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function AboutCard(props: RouteComponentProps) {
+  console.log("about props", props)
   const classes = useStyles();
   
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="about" className={classes.avatar}>
             CM
           </Avatar>
         }

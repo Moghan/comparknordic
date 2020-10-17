@@ -11,9 +11,6 @@ import { navigate } from '@reach/router'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
-      margin: 'auto',
-      marginTop: 24
     },
     avatar: {
       backgroundColor: red[500],
@@ -32,7 +29,7 @@ export default function AboutCard({garage}: IGarageCard) {
     <Card className={classes.root} onClick={() => navigate(`/garages/${garage.id}`)}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="garage" className={classes.avatar}>
             P
           </Avatar>
         }

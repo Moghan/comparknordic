@@ -14,15 +14,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface IGarageCard {
-  floor: any
+interface IEntryCard {
+  garageId?: string
 }
 
-export default function FloorCard({floor}: IGarageCard) {
+export default function EntryCard({ garageId }: IEntryCard) {
   const classes = useStyles();
   
   return (
-    <Card className={classes.root} onClick={() => navigate("/garages")}>
+    <Card className={classes.root} onClick={() => navigate(`/garages/${garageId}/entry`)}>
       <CardHeader
         title="Entry"
       />

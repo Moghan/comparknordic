@@ -30,11 +30,15 @@ export function Garage(props: IGarage) {
   
   return (
     <>
-      <EntrenceCard name={currentGarage.name} availableSpots={availableSpots} />
+      <EntrenceCard
+        name={currentGarage.name}
+        availableSpots={availableSpots}
+        garageId={garageId}
+      />
       { currentGarage.floors.map((floor: any, index: number) => (
-        <FloorCard floor={floor} level={index} />
+        <FloorCard key={index} garageId={garageId} floor={floor} level={index} />
       ))}
-      <EntryCard floor={{}} />
+      <EntryCard garageId={garageId} />
       <ExitCard garageId={garageId} />
     </>
   );

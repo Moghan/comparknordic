@@ -14,12 +14,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface IGarageCard {
+interface IFloorCard {
+  garageId?: string,
   floor: any,
   level: number
 }
 
-export default function FloorCard({floor, level}: IGarageCard) {
+export default function FloorCard({floor, level, garageId}: IFloorCard) {
   const classes = useStyles();
   const title = level === 0 ? "Ground level" : `${level} level`
   const totalSpots = floor.spots.length
@@ -27,7 +28,7 @@ export default function FloorCard({floor, level}: IGarageCard) {
 
   
   return (
-    <Card className={classes.root} onClick={() => navigate("/garages")}>
+    <Card className={classes.root} onClick={() => navigate(`/garages/${garageId}/${level}`)}>
       <CardHeader
         title={title}
         subheader={`${availableSpots} available out of ${totalSpots}`}

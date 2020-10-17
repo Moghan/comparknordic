@@ -16,16 +16,17 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface IGarageCard {
+interface IEntrenceCard {
   name: string,
-  availableSpots: number
+  availableSpots: number,
+  garageId?: string
 }
 
-export default function EntrenceCard({name, availableSpots}: IGarageCard) {
+export default function EntrenceCard({name, availableSpots, garageId}: IEntrenceCard) {
   const classes = useStyles();
   
   return (
-    <Card className={classes.root} onClick={() => navigate("/garages")}>
+    <Card className={classes.root} onClick={() => navigate(`/garages/${garageId}/entrence`)}>
       <CardHeader
         title="Entrence"
         subheader={name}

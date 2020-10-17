@@ -3,19 +3,44 @@ import '../../App.css';
 import { RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
 import GarageCard from './GarageCard'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
-export interface IHome extends RouteComponentProps {
+export interface IGaragesView extends RouteComponentProps {
   garages: any,
   state: any
 }
 
-export function Home({ garages }: IHome) {
-  //console.log("props.state", props.state)
-  //console.log("props.garage", props.garages)
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      margin: 14,
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }),
+);
+
+export function GaragesView({ garages }: IGaragesView) {
+  const classes = useStyles();
+
   return (
-    garages.map((garage: any, index: number) => (
-      <GarageCard key={index} garage={garage} />
-    ))
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        {
+          garages.map((garage: any, index: number) => (
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <GarageCard key={index} garage={garage} />
+            </Grid>
+          ))
+        }
+      </Grid>
+    </div>
   )
 }
 
@@ -27,4 +52,4 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(GaragesView)

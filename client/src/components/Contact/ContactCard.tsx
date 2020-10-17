@@ -39,7 +39,7 @@ export default function ContactCard(props: RouteComponentProps) {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="contact" className={classes.avatar}>
             AK
           </Avatar>
         }
