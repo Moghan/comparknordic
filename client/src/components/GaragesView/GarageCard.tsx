@@ -6,8 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import { RouteComponentProps } from "@reach/router"
-
+import { navigate } from '@reach/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,35 +15,35 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 'auto',
       marginTop: 24
     },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-    },
     avatar: {
       backgroundColor: red[500],
     },
   }),
 );
 
-export default function AboutCard(props: RouteComponentProps) {
+interface IGarageCard {
+  garage: any
+}
+
+export default function AboutCard({garage}: IGarageCard) {
   const classes = useStyles();
   
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={() => navigate(`/garages/${garage.id}`)}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            CM
+            P
           </Avatar>
         }
-        title="Compark Nordic"
-        subheader="the forgotten dream not lost"
+        title={garage.name}
+        subheader={garage.description}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          In 2004 I got my first job and for almost a year I checked parking tickets and wrote parking fees. 
-          It made me think, is there a way to help customers pay their tickets instead of punishing them when not buying or missing the time. 
-          The vision of Compark Nordic was born and my best selling point was "the experience begins in the parking lot". Enjoy :)
+          Floors: {garage.floors.length}
+          <br/>
+          Spots: {garage.floors.map((floor:any) => floor.spots.length).reduce((a: number, b: number) => a + b, 0)}
         </Typography>
       </CardContent>
     </Card>

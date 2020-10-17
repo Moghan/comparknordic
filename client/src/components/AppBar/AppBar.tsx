@@ -23,10 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: 'white'
         },
         title: {
-            display: 'none',
-            [theme.breakpoints.up('sm')]: {
-                display: 'block',
-            },
+            flexGrow: 1
         },
     }),
 );
