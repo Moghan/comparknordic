@@ -34,13 +34,9 @@ export function Entrence({ garage, availableSpots }: IEntrence) {
       <h1>Welcome to {garage.name}</h1>
       <div className={classes.root}>
         { availableSpots === 0 ?
-          <p>
             <h1 className={classes.garageFull}>GARAGE IS FULL</h1>
-          </p>
           :
-          <p>
-            <h1 className={classes.freeSpots}>{availableSpots}</h1> spots are available.
-          </p>
+            <div><h1 className={classes.freeSpots}>{availableSpots}</h1> spots are available.</div>
         }
       </div>
     </>

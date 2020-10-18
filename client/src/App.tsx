@@ -11,12 +11,14 @@ import Entry from './components/Entry'
 import Exit from './components/Exit'
 import Floor from './components/Floor'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Breadcrumbs from './components/Breadcrumbs'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mainContainer: {
       maxWidth: 1200,
-      margin: 'auto'
+      margin: 'auto',
+      padding: 10
     }
   }),
 );
@@ -27,6 +29,11 @@ function App() {
   return (
     <div>
       <AppBar />
+      <div className={classes.mainContainer}>
+        <Router>
+          <Breadcrumbs path="/garages/*" />
+        </Router>
+      </div>
       <div className={classes.mainContainer}>
         <Router>
           <Home path="/" />

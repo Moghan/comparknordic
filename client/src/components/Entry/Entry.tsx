@@ -50,7 +50,6 @@ export function Entry({ garage, availableSpots }: IEntry) {
   };
 
   const spotsPerVehicle = inGaragePerVehicle(garage)
-  console.log("sptospervehicele", spotsPerVehicle)
 
   return (
     <div className={classes.root}>
