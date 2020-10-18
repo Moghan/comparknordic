@@ -9,14 +9,6 @@ import { FullscreenExit } from '@material-ui/icons';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'baseline',
-      flexGrow: 1,
-      padding: 5,
-      maxWidth: 1200,
-      margin: 'auto',
-      marginTop: 24,
     },
     freeSpots: {
       color: 'green',

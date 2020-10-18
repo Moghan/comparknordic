@@ -1,22 +1,24 @@
 import React from 'react';
 import '../../App.css';
-import { Link, RouteComponentProps } from "@reach/router"
+import { RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { garages } from '../../test-data/data';
-import { FullscreenExit } from '@material-ui/icons';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import { inGaragePerVehicle } from '../../utils/availableSpots'
+
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import { BuyTicketDialog } from './BuyTicketDialog'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'baseline',
-      flexGrow: 1,
-      padding: 5,
-      maxWidth: 1200,
-      margin: 'auto',
-      marginTop: 24,
+      flexDirection: 'column',
     },
     freeSpots: {
       color: 'green',
@@ -25,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
     garageFull: {
       color: 'red',
       padding: 12
+    },
+    buyTicketButton: {
+      maxWidth: 240
     }
   }),
 );
@@ -36,9 +41,60 @@ export interface IEntry extends RouteComponentProps {
 
 export function Entry({ garage, availableSpots }: IEntry) {
   const classes = useStyles();
+  const [value, setValue] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+  };
+
+  const spotsPerVehicle = inGaragePerVehicle(garage)
+  console.log("sptospervehicele", spotsPerVehicle)
 
   return (
-    <h1>Entry {garage.name}</h1>
+    <div className={classes.root}>
+      <h1>Entry {garage.name}</h1>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Please select your vehicle type</FormLabel>
+        <RadioGroup aria-label="vehicleType" name="vehicleType" value={value} onChange={handleChange}>
+          <FormControlLabel
+            disabled={spotsPerVehicle.Compact.free === 0}
+            value="Compact"
+            control={<Radio />}
+            label="Compact"
+          />
+          <FormControlLabel
+            disabled={spotsPerVehicle.Large.free === 0}
+            value="Large"
+            control={<Radio />}
+            label="Large"
+          />
+          <FormControlLabel
+            disabled={spotsPerVehicle.Motorcycle.free === 0}
+            value="Motorcycle"
+            control={<Radio />}
+            label="Motorcycle"
+          />
+          <FormControlLabel
+            disabled={spotsPerVehicle.Handicapped.free === 0}
+            value="Handicapped"
+            control={<Radio />}
+            label="Handicapped"
+          />
+        </RadioGroup>
+      </FormControl>
+      <Button
+        className={classes.buyTicketButton}
+        disabled={value === ''}
+        variant="contained"
+        color="primary"
+        onClick={() => setOpen(true)}
+      >
+        Buy ticket
+      </Button>
+      <BuyTicketDialog open={open} onClose={() => setOpen(false)}/>
+    </div>
   )
 }
 

@@ -34,8 +34,8 @@ export function GaragesView({ garages }: IGaragesView) {
       <Grid container spacing={3}>
         {
           garages.map((garage: any, index: number) => (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <GarageCard key={index} garage={garage} />
+            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+              <GarageCard garage={garage} />
             </Grid>
           ))
         }
