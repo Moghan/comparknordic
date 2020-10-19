@@ -25,5 +25,25 @@
     - comparknordic.com, www.comparknordic.com
 * Reach router
 * Class diagram
-    - Lucidchart(account needed) - https://lucid.app/invitations/accept/cd21725d-9814-43cf-946a-6f6ccf97830c
-    - TODO: Download and add png-file to repo
+    - made with Lucidchart (Lucidchart.com)
+    - added .png to repo
+* Adding Material-ui
+* Building the application
+    - all basic views
+    - a few of the most basic features
+
+## For the future
+
+* Complete the application
+    - most features is still to be done
+* Serverless hosted backend
+    - DynamoDB
+    - Appsync
+    - authentication
+    - Lambda functions
+
+## Some comments
+
+Hopefully the repo fulfills its purpose as is.
+
+When I'm done, I imagine that this project will do nicely as the capstone-project in the Cloud Developer course at Udacity.com.
