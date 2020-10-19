@@ -1,10 +1,8 @@
 import React from 'react';
 import '../../App.css';
-import { Link, navigate, RouteComponentProps } from "@reach/router"
+import { navigate, RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { garages } from '../../test-data/data';
-import { FullscreenExit } from '@material-ui/icons';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -72,7 +70,5 @@ const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
     availableSpots
   }
 }
-const mapDispatchToProps = (dispatch: any) => ({
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Exit)
+export default connect(mapStateToProps)(Exit)

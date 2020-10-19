@@ -1,4 +1,3 @@
-import * as uuid from 'uuid'
 import { inGaragePerVehicle } from '../../utils/availableSpots'
 
 export const ADD_TICKET = 'ADD_TICKET'

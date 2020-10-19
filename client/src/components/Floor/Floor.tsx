@@ -2,32 +2,8 @@ import React from 'react';
 import '../../App.css';
 import { Link, RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { onFloorPerVehicle } from '../../utils/availableSpots'
-import { VehicleTypes } from '../../utils/commonInterfaces'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'baseline',
-      flexGrow: 1,
-      padding: 5,
-      maxWidth: 1200,
-      margin: 'auto',
-      marginTop: 24,
-    },
-    freeSpots: {
-      color: 'green',
-      padding: 12
-    },
-    garageFull: {
-      color: 'red',
-      padding: 12
-    }
-  }),
-);
 
 export interface IFloor extends RouteComponentProps {
   garage: any,
@@ -37,7 +13,6 @@ export interface IFloor extends RouteComponentProps {
 
 export function Floor({ garage, availableSpots, level }: IFloor) {
 
-  const classes = useStyles();
   const title = Number(level) === 0 ? "Floor level : Ground" : `Floor level: ${level}`
   
   if(level === undefined) {

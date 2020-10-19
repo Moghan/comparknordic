@@ -11,9 +11,7 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
       margin: 'auto',
-      marginTop: 24
     },
   }),
 );
@@ -25,12 +23,11 @@ interface IGarage extends RouteComponentProps {
 }
 
 export function Garage(props: IGarage) {
-  console.log("GARAGE PROPS", props.garageId)
   const { garageId, availableSpots, currentGarage } = props
   const classes = useStyles();
   
   return (
-    <>
+    <div className={classes.root}>
       <Button variant="contained" onClick={() => navigate(`/manage/${garageId}`)}>Manage this garage...</Button>
       <EntrenceCard
         name={currentGarage.name}
@@ -42,7 +39,7 @@ export function Garage(props: IGarage) {
       ))}
       <EntryCard garageId={garageId} />
       <ExitCard garageId={garageId} />
-    </>
+    </div>
   );
 }
 
@@ -57,7 +54,4 @@ const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Garage)
+export default connect(mapStateToProps)(Garage)

@@ -7,7 +7,6 @@ const garages = [
         description: "just a test object",
         floors: [
             {
-                id: "ground_floor_id_asdf",
                 spots: [
                     {
                         id: 9000,
@@ -21,7 +20,6 @@ const garages = [
                 ]
             },
             {
-                id: "first_floor_id_jmkum",
                 spots: [
                     {
                         id: 9002,
@@ -83,7 +81,6 @@ const garages = [
         description: "another test string",
         floors: [
             {
-                id: "ground_floor_id_asdf",
                 spots: [
                     {
                         id: 9012,
