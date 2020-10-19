@@ -1,11 +1,12 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { RouteComponentProps } from "@reach/router"
+import { RouteComponentProps, navigate } from "@reach/router"
 import EntrenceCard from './EntrenceCard'
 import FloorCard from './FloorCard'
 import EntryCard from './EntryCard'
 import ExitCard from './ExitCard'
 import { connect } from 'react-redux'
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +31,7 @@ export function Garage(props: IGarage) {
   
   return (
     <>
+      <Button variant="contained" onClick={() => navigate(`/manage/${garageId}`)}>Manage this garage...</Button>
       <EntrenceCard
         name={currentGarage.name}
         availableSpots={availableSpots}

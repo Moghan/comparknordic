@@ -10,6 +10,7 @@ import Entrence from './components/Entrence'
 import Entry from './components/Entry'
 import Exit from './components/Exit'
 import Floor from './components/Floor'
+import Manage from './components/Manage'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Breadcrumbs from './components/Breadcrumbs'
 
@@ -45,6 +46,7 @@ function App() {
           <Entry path='/garages/:garageId/entry' />
           <Exit path='/garages/:garageId/exit' />
           <Floor path='/garages/:garageId/:level' />
+          <Manage path='/manage/:garageId' />
         </Router>
       </div>
     </div>

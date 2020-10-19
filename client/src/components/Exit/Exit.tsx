@@ -76,18 +76,3 @@ const mapDispatchToProps = (dispatch: any) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exit)
-
-/*
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
-
-
-export default function FormPropsTextFields() {
-  const classes = useStyles();
-
-  return (
-    
-  );
-}
-*/

@@ -10,9 +10,11 @@ const garages = [
                 id: "ground_floor_id_asdf",
                 spots: [
                     {
+                        id: 9000,
                         free: false,
                         type: VehicleTypes.Compact 
                     },{
+                        id: 9001,
                         free: true,
                         type: VehicleTypes.Motorcycle
                     }
@@ -22,31 +24,40 @@ const garages = [
                 id: "first_floor_id_jmkum",
                 spots: [
                     {
+                        id: 9002,
                         free: true,
                         type: VehicleTypes.Large 
                     },{
+                        id: 9004,
                         free: false,
                         type: VehicleTypes.Compact
                     },{
+                        id: 9005,
                         free: false,
                         type: VehicleTypes.Compact
                     },{
+                        id: 9006,
                         free: true,
                         type: VehicleTypes.Large
                     },
                     {
+                        id: 9007,
                         free: true,
                         type: VehicleTypes.Compact 
                     },{
+                        id: 9008,
                         free: true,
                         type: VehicleTypes.Compact
                     },{
+                        id: 9009,
                         free: true,
                         type: VehicleTypes.Compact
                     },{
+                        id: 9010,
                         free: false,
                         type: VehicleTypes.Large
                     },{
+                        id: 9011,
                         free: false,
                         type: VehicleTypes.Motorcycle
                     }
@@ -75,122 +86,13 @@ const garages = [
                 id: "ground_floor_id_asdf",
                 spots: [
                     {
+                        id: 9012,
                         free: false,
                         type: VehicleTypes.Compact 
                     },{
+                        id: 9013,
                         free: true,
                         type: VehicleTypes.Motorcycle
-                    }
-                ]
-            }
-        ],
-        tickets: [
-            {
-                id: "ticket1",
-                timeOfArrival: 0,
-                timeOfPayment: undefined
-            },
-            {
-                id: "ticket2",
-                timeOfArrival: 0,
-                timeOfPayment: undefined
-            }
-        ]
-    },
-    {
-        id: "3003",
-        name: "test-data-garage",
-        description: "just a test object",
-        floors: [
-            {
-                id: "ground_floor_id_asdf",
-                spots: [
-                    {
-                        free: true,
-                        type: VehicleTypes.Compact 
-                    },{
-                        free: true,
-                        type: VehicleTypes.Motorcycle
-                    }
-                ]
-            },
-            {
-                id: "first_floor_id_jmkum",
-                spots: [
-                    {
-                        free: true,
-                        type: VehicleTypes.Compact 
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Large
-                    },
-                    {
-                        free: true,
-                        type: VehicleTypes.Compact 
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Large
-                    }
-                ]
-            }
-        ],
-        tickets: [
-            {
-                id: "ticket1",
-                timeOfArrival: 0,
-                timeOfPayment: undefined
-            },
-            {
-                id: "ticket2",
-                timeOfArrival: 0,
-                timeOfPayment: undefined
-            }
-        ]
-    },
-    {
-        id: "4004",
-        name: "Second Garage",
-        description: "another test string",
-        floors: [
-            {
-                id: "ground_floor_id_asdf",
-                spots: [
-                    {
-                        free: true,
-                        type: VehicleTypes.Compact 
-                    },{
-                        free: true,
-                        type: VehicleTypes.Motorcycle
-                    }
-                ]
-            },
-            {
-                id: "first_floor_id_jmkum",
-                spots: [
-                    {
-                        free: true,
-                        type: VehicleTypes.Compact 
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Large
                     }
                 ]
             }
@@ -210,51 +112,4 @@ const garages = [
     }
 ]
 
-const ticketTypeAndLocation = [
-    {
-        ticketId: "ticket1",
-        floorId: "ground_floor_id_asdf",
-        vehicleType: VehicleTypes.Compact
-    },
-    {
-        ticketId: "ticket2",
-        floorId: "first_floor_id_jmkum",
-        vehicleType: VehicleTypes.Large
-    }
-]
-
-const floors = [
-    {
-        id: "ground_floor_id_asdf",
-        spots: [
-            {
-                free: true,
-                type: VehicleTypes.Compact 
-            },{
-                free: true,
-                type: VehicleTypes.Motorcycle
-            }
-        ]
-    },
-    {
-        id: "first_floor_id_jmkum",
-        spots: [
-            {
-                free: true,
-                type: VehicleTypes.Compact 
-            },{
-                free: true,
-                type: VehicleTypes.Compact
-            },{
-                free: true,
-                type: VehicleTypes.Compact
-            },{
-                free: true,
-                type: VehicleTypes.Large
-            }
-        ]
-    }
-]
-
-
-export { garages, floors };
+export { garages };
