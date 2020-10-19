@@ -2,7 +2,8 @@ import { VehicleTypes } from '../../utils/commonInterfaces'
 import { garages } from '../../test-data/data'
 import {
   ADD_TICKET,
-  RESERVE_SPOT
+  RESERVE_SPOT,
+  DELETE_SPOT
 } from '../actions'
 
 const defaultState = {
@@ -12,6 +13,32 @@ const defaultState = {
 
 const garagesReducer = (state = defaultState, action) => {
     switch (action.type) {
+      case DELETE_SPOT: {
+        const newGarages = state.garages.map((garage) => {
+          if(garage.id === action.garageId) {
+            return {
+              ...garage,
+              floors: garage.floors.map((floor, index) => {
+                if(index === action.level) {
+                  return {
+                    ...floor,
+                    spots: floor.spots.filter((spot) => spot.id !== action.spotId) 
+                  }
+                } else {
+                  return floor
+                }
+              })
+            }
+          } else {
+            return garage
+          }
+        })
+        return {
+          ...state,
+          garages: newGarages,
+        }
+      }
+
       case ADD_TICKET: {
         const newGarages = state.garages.map((garage) => {
           if(garage.id === action.garageId) {

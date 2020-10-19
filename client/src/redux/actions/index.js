@@ -3,12 +3,20 @@ import { inGaragePerVehicle } from '../../utils/availableSpots'
 
 export const ADD_TICKET = 'ADD_TICKET'
 export const RESERVE_SPOT = 'RESERVE_SPOT'
+export const DELETE_SPOT = 'DELETE_SPOT'
 
 const reserveSpot = (garageId, vehicleType, id) => ({
   type: RESERVE_SPOT,
   garageId,
   vehicleType,
   ticketId: id
+})
+
+export const deleteSpot = (spotId, garageId, level) => ({
+  type: DELETE_SPOT,
+  garageId,
+  spotId,
+  level
 })
 
 export const addTicket = (garageId, vehicleType, ticketId = 0) => {
