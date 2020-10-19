@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import todos from './todos'
+import app from './garages'
 
 export default combineReducers({
-  todos
+  app
 })

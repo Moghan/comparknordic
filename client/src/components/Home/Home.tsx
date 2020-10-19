@@ -1,40 +1,32 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
-import { RouteComponentProps } from "@reach/router"
-import { connect } from 'react-redux'
+import { Link, RouteComponentProps } from "@reach/router"
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      padding: 5,
+      maxWidth: 1200,
+      margin: 'auto',
+      marginTop: 24,
+    },
+  }),
+);
 
 export interface IHome extends RouteComponentProps {
-  state: any
 }
 
 export function Home(props: IHome) {
-  console.log("props.state", props.state)
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Now this is the Home component.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <h1>Greetings visitor</h1>
+      Lets head for the the <Link to="/garages">garages</Link> to get started.
     </div>
-  );
+  )
 }
 
-const mapStateToProps = (state: any) => ({
-  state
-})
-
-const mapDispatchToProps = (dispatch: any) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home
