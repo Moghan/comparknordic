@@ -24,7 +24,7 @@ export function Home(props: IHome) {
 
   return (
     <div className={classes.root}>
-      <h1>Greeting visitor</h1>
+      <h1>Greetings visitor</h1>
       Lets head for the the <Link to="/garages">garages</Link> to get started.
     </div>
   )

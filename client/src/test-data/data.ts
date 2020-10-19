@@ -46,6 +46,9 @@ const garages = [
                     },{
                         free: false,
                         type: VehicleTypes.Large
+                    },{
+                        free: false,
+                        type: VehicleTypes.Motorcycle
                     }
                 ]
             }
@@ -72,29 +75,11 @@ const garages = [
                 id: "ground_floor_id_asdf",
                 spots: [
                     {
-                        free: true,
+                        free: false,
                         type: VehicleTypes.Compact 
                     },{
                         free: true,
                         type: VehicleTypes.Motorcycle
-                    }
-                ]
-            },
-            {
-                id: "first_floor_id_jmkum",
-                spots: [
-                    {
-                        free: true,
-                        type: VehicleTypes.Compact 
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Compact
-                    },{
-                        free: true,
-                        type: VehicleTypes.Large
                     }
                 ]
             }

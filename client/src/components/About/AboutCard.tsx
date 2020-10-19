@@ -35,7 +35,7 @@ export default function AboutCard(props: RouteComponentProps) {
       <CardHeader
         avatar={
           <Avatar aria-label="about" className={classes.avatar}>
-            CM
+            CN
           </Avatar>
         }
         title="Compark Nordic"

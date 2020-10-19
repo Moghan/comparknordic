@@ -1,8 +1,10 @@
 import React from 'react';
 import '../../App.css';
-import { RouteComponentProps } from "@reach/router"
+import { Link, RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { onFloorPerVehicle } from '../../utils/availableSpots'
+import { VehicleTypes } from '../../utils/commonInterfaces'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,11 +36,31 @@ export interface IFloor extends RouteComponentProps {
 }
 
 export function Floor({ garage, availableSpots, level }: IFloor) {
+
   const classes = useStyles();
-  const title = Number(level) === 0 ? "Ground level" : `${level} level`
+  const title = Number(level) === 0 ? "Floor level : Ground" : `Floor level: ${level}`
+  
+  if(level === undefined) {
+    return (
+      <h1>This level does not exit. Start over <Link to="/">here</Link>.</h1>
+    )
+  }
+
+  const floorData = onFloorPerVehicle(garage.floors[level])
+  console.log("floorData", floorData)
 
   return (
-  <h1>{title}</h1>
+    <>
+      <h1>{title}</h1>
+      { Object.entries(floorData).map(([key, value]: any) => {
+        console.log("value", value)
+        return (
+        <div>
+          <h3>{key} {value.free} / {value.total}</h3>
+        </div>
+        )}
+      )}
+    </>
   )
 }
 
