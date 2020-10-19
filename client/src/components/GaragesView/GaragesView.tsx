@@ -7,8 +7,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 export interface IGaragesView extends RouteComponentProps {
-  garages: any,
-  state: any
+  garages: any
 }
 
 
@@ -44,9 +43,8 @@ export function GaragesView({ garages }: IGaragesView) {
   )
 }
 
-const mapStateToProps = (state: any) => ({
-  garages: state.app.garages,
-  state
+const mapStateToProps = ({root: {app}}: any) => ({
+  garages: app.garages
 })
 
 const mapDispatchToProps = (dispatch: any) => ({

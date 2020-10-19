@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import { BuyTicketDialog } from './BuyTicketDialog'
+import { addTicket } from '../../redux/actions'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,18 +37,29 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface IEntry extends RouteComponentProps {
   garage: any,
-  availableSpots: number
+  availableSpots: number,
+  nextTicketId: number,
+  addTicket: (garageId: string, vehicleType: string, nextTicketId: number) => void
 }
 
-export function Entry({ garage, availableSpots }: IEntry) {
-  const classes = useStyles();
-  const [value, setValue] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntry) {
+  const classes = useStyles()
+  const [value, setValue] = React.useState('')
+  const [open, setOpen] = React.useState(false)
+  const [ticketId, setTicketId] = React.useState(0)
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
+
+  const handleBuyTicket =  () => {
+    addTicket(garage.id, value, nextTicketId)
+    setValue('')
+    setTicketId(nextTicketId)
+    console.log("handle buy ticket", garage.id, value)
+    setOpen(true)
+  }
 
   const spotsPerVehicle = inGaragePerVehicle(garage)
 
@@ -88,16 +100,16 @@ export function Entry({ garage, availableSpots }: IEntry) {
         disabled={value === ''}
         variant="contained"
         color="primary"
-        onClick={() => setOpen(true)}
+        onClick={() => handleBuyTicket()}
       >
         Buy ticket
       </Button>
-      <BuyTicketDialog open={open} onClose={() => setOpen(false)}/>
+      <BuyTicketDialog open={open} onClose={() => setOpen(false)} ticketId={ticketId}/>
     </div>
   )
 }
 
-const mapStateToProps = ({ app }: any, { garageId }: any) => {
+const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   console.log("APP", app, garageId)
   const garage = app.garages.find((g: any) => g.id === garageId)
   const availableSpots = garage.floors.map((floor: any) => 
@@ -105,10 +117,12 @@ const mapStateToProps = ({ app }: any, { garageId }: any) => {
   
   return {
     garage,
-    availableSpots
+    availableSpots,
+    nextTicketId: app.nextTicketId
   }
 }
 const mapDispatchToProps = (dispatch: any) => ({
+  addTicket: (garageId: string, vehicleType: string, nextTicketId: number) => {dispatch(addTicket(garageId, vehicleType, nextTicketId))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entry)

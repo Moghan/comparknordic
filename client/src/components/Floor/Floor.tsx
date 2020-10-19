@@ -42,7 +42,7 @@ export function Floor({ garage, availableSpots, level }: IFloor) {
   )
 }
 
-const mapStateToProps = ({ app }: any, { garageId }: any) => {
+const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const garage = app.garages.find((g: any) => g.id === garageId)
   const availableSpots = garage.floors.map((floor: any) => 
     floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)

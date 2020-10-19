@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import garages from './garages'
+import app from './garages'
 
 export default combineReducers({
-  garages
+  app
 })

@@ -29,17 +29,14 @@ const useStyles = makeStyles({
 export interface IBuyTicketDialog {
   open: boolean;
   onClose: () => void;
+  ticketId: number;
 }
 
 export function BuyTicketDialog(props: IBuyTicketDialog) {
   const classes = useStyles();
-  const { onClose, open } = props;
+  const { onClose, open, ticketId } = props;
 
   const handleClose = () => {
-    onClose();
-  };
-
-  const handleListItemClick = (value: string) => {
     onClose();
   };
 
@@ -51,7 +48,7 @@ export function BuyTicketDialog(props: IBuyTicketDialog) {
             Enter this code on exit:
         </Typography>
         <Typography variant="h3" gutterBottom>
-            1001
+            {ticketId}
         </Typography>
       </div>
       <div className={classes.dialogItem}>

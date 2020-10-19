@@ -42,7 +42,7 @@ export function Exit({ garage, availableSpots }: IExit) {
   )
 }
 
-const mapStateToProps = ({ app }: any, { garageId }: any) => {
+const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   console.log("APP", app, garageId)
   const garage = app.garages.find((g: any) => g.id === garageId)
   const availableSpots = garage.floors.map((floor: any) => 
