@@ -30,7 +30,6 @@ export function Exit({ garage, availableSpots }: IExit) {
   const [open, setOpen] = React.useState(false)
 
   const handleConfirm = () => {
-    console.log("confirm was pressed")
     setOpen(true)
   }
 
@@ -60,7 +59,6 @@ export function Exit({ garage, availableSpots }: IExit) {
 }
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
-  console.log("APP", app, garageId)
   const garage = app.garages.find((g: any) => g.id === garageId)
   const availableSpots = garage.floors.map((floor: any) => 
     floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)

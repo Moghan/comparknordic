@@ -22,13 +22,11 @@ export function Floor({ garage, availableSpots, level }: IFloor) {
   }
 
   const floorData = onFloorPerVehicle(garage.floors[level])
-  console.log("floorData", floorData)
 
   return (
     <>
       <h1>{title}</h1>
       { Object.entries(floorData).map(([key, value]: any) => {
-        console.log("value", value)
         return (
         <div>
           <h3>{key} {value.free} / {value.total}</h3>
@@ -49,7 +47,5 @@ const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
     availableSpots
   }
 }
-const mapDispatchToProps = (dispatch: any) => ({
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Floor)
+export default connect(mapStateToProps)(Floor)

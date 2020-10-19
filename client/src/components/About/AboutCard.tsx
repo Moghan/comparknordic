@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function AboutCard(props: RouteComponentProps) {
-  console.log("about props", props)
   const classes = useStyles();
   
   return (

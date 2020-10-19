@@ -13,9 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
-
 import { deleteSpot } from '../../redux/actions'
-
 
 const useStyles = makeStyles({
   table: {
@@ -30,8 +28,6 @@ export interface IManage extends RouteComponentProps {
 
 export function Manage({ garage, deleteSpot }: IManage) {
   const classes = useStyles();
-
-  
 
   return (
     <div>

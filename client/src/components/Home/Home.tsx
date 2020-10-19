@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../App.css';
 import { Link, RouteComponentProps } from "@reach/router"
-import { connect } from 'react-redux'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,10 +29,4 @@ export function Home(props: IHome) {
   )
 }
 
-const mapStateToProps = (state: any) => ({
-})
-
-const mapDispatchToProps = (dispatch: any) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home

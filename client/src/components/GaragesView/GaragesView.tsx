@@ -47,7 +47,4 @@ const mapStateToProps = ({root: {app}}: any) => ({
   garages: app.garages
 })
 
-const mapDispatchToProps = (dispatch: any) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(GaragesView)
+export default connect(mapStateToProps)(GaragesView)

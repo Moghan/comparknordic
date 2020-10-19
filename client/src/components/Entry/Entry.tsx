@@ -114,7 +114,6 @@ export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntr
 }
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
-  console.log("APP", app, garageId)
   const garage = app.garages.find((g: any) => g.id === garageId)
   const availableSpots = garage.floors.map((floor: any) => 
     floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)
