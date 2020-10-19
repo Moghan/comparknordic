@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import { RouteComponentProps } from "@reach/router"
+import { navigate, RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -57,8 +57,12 @@ export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntr
     addTicket(garage.id, value, nextTicketId)
     setValue('')
     setTicketId(nextTicketId)
-    console.log("handle buy ticket", garage.id, value)
     setOpen(true)
+  }
+
+  const handleOnCloseDialog = () => {
+    setOpen(false)
+    navigate(`/garages/${garage.id}`)
   }
 
   const spotsPerVehicle = inGaragePerVehicle(garage)
@@ -102,9 +106,9 @@ export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntr
         color="primary"
         onClick={() => handleBuyTicket()}
       >
-        Buy ticket
+        Take ticket
       </Button>
-      <BuyTicketDialog open={open} onClose={() => setOpen(false)} ticketId={ticketId}/>
+      <BuyTicketDialog open={open} onClose={handleOnCloseDialog} ticketId={ticketId}/>
     </div>
   )
 }

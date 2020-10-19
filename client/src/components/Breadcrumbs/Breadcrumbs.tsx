@@ -15,13 +15,13 @@ export default function SimpleBreadcrumbs(props: RouteComponentProps) {
                     link = link + '/' + crumb
                     if(i !== lastIndex) {
                         return (
-                            <Link color="inherit" to={link}>
+                            <Link key={i} color="inherit" to={link}>
                                 {crumb}
                             </Link>
                         )
                     } else {
                         return (
-                            <Typography color="textPrimary">{crumb}</Typography>
+                            <Typography key={i} color="textPrimary">{crumb}</Typography>
                         )
                     }
                 })

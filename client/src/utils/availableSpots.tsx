@@ -3,14 +3,16 @@ import { VehicleTypes } from './commonInterfaces'
 
 export const totalGarage = (garage: any) => {
 
-    const totalPerFloor = garage.floors.map((floor: any) =>
+    const totalPerFloorArrays = garage.floors.map((floor: any) =>
         floor.spots)
     
-    const freePerFloor = totalPerFloor.map((floor: any) =>
+    const freePerFloor = totalPerFloorArrays.map((floor: any) =>
         floor.filter((spot: any) =>
             spot.free).length)
         
-    const total = totalPerFloor.reduce((a: number, b: number) => a + b, 0)
+    const total = totalPerFloorArrays.map((floor: any) =>
+        floor.length).reduce((a: number, b: number) => a + b, 0)
+    
     const free = freePerFloor.reduce((a: number, b: number) => a + b, 0)
     
     return ({ total, free})

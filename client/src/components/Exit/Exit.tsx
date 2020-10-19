@@ -1,31 +1,24 @@
 import React from 'react';
 import '../../App.css';
-import { Link, RouteComponentProps } from "@reach/router"
+import { Link, navigate, RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { garages } from '../../test-data/data';
 import { FullscreenExit } from '@material-ui/icons';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { LogoutDialog } from './LogoutDialog'
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'baseline',
-      flexGrow: 1,
-      padding: 5,
-      maxWidth: 1200,
-      margin: 'auto',
-      marginTop: 24,
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
     },
-    freeSpots: {
-      color: 'green',
-      padding: 12
-    },
-    garageFull: {
-      color: 'red',
-      padding: 12
-    }
   }),
 );
 
@@ -36,9 +29,35 @@ export interface IExit extends RouteComponentProps {
 
 export function Exit({ garage, availableSpots }: IExit) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false)
+
+  const handleConfirm = () => {
+    console.log("confirm was pressed")
+    setOpen(true)
+  }
+
+  const handleOnClose = () => {
+    setOpen(false)
+    navigate(`/garages/${garage.id}`)
+  }
 
   return (
-    <h1>Exit</h1>
+    <div>
+      <Typography variant="subtitle2" gutterBottom>
+          Enter your tickets code and press logout.
+      </Typography>
+      <form className={classes.root} noValidate autoComplete="off">
+        <div>
+          <TextField
+            id="standard-read-only-input"
+            label="Ticket Code"
+          />
+        </div>
+        <Button variant="contained" color="primary" onClick={() => handleConfirm()}>Logout</Button>
+        <LogoutDialog open={open} onClose={handleOnClose} />
+
+      </form>
+    </div>
   )
 }
 
@@ -57,3 +76,18 @@ const mapDispatchToProps = (dispatch: any) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exit)
+
+/*
+import React from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+
+
+export default function FormPropsTextFields() {
+  const classes = useStyles();
+
+  return (
+    
+  );
+}
+*/

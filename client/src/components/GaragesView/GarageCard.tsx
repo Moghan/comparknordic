@@ -44,9 +44,9 @@ export default function AboutCard({garage}: IGarageCard) {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Floors: {garage.floors.length}
+          Total spots: {total}
           <br/>
-          Spots: {free}
+          Available spots: {free}
         </Typography>
       </CardContent>
     </Card>
