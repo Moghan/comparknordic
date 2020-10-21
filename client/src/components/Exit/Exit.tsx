@@ -22,20 +22,47 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface IExit extends RouteComponentProps {
   garage: any,
-  availableSpots: number
+  availableSpots: number,
+  rules: any[]
 }
 
-export function Exit({ garage, availableSpots }: IExit) {
+export function Exit({ garage, availableSpots, rules }: IExit) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false)
+  const [code, setCode] = React.useState('')
 
   const handleConfirm = () => {
-    setOpen(true)
+    const idAsNumber = Number(code)
+    if(isNaN(idAsNumber)) {
+      console.log("Code is not a number.")
+      return
+    }
+    const isLoggedInTicket = garage.tickets.find((ticket: any) => ticket.id === idAsNumber)
+    console.log("isLoggedTicket", isLoggedInTicket)
+    if(!isLoggedInTicket) {
+      console.log("Ticket not found")
+      return
+    }
+    console.log("rules", rules)
+    const timeOfDeparture =  new Date()
+    console.log("timeOfArrival  ", isLoggedInTicket.timeOfArrival)
+    console.log("timeOfDeparture", timeOfDeparture.toISOString())
+
+    const lengthOfStay = Math.floor((timeOfDeparture.getTime() - new Date(isLoggedInTicket.timeOfArrival).getTime()) / 1000 /60 /60)
+
+    console.log("time of stay", lengthOfStay)
+    // logoutTicket(idAsNumber)
+    // getTicket(idAsNumber)
+    //setOpen(true)
   }
 
   const handleOnClose = () => {
     setOpen(false)
     navigate(`/garages/${garage.id}`)
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCode(event.target.value);
   }
 
   return (
@@ -46,8 +73,10 @@ export function Exit({ garage, availableSpots }: IExit) {
       <form className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
+            onChange={handleChange}
             id="standard-read-only-input"
             label="Ticket Code"
+            value={code}
           />
         </div>
         <Button variant="contained" color="primary" onClick={() => handleConfirm()}>Logout</Button>
@@ -65,7 +94,8 @@ const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   
   return {
     garage,
-    availableSpots
+    availableSpots,
+    rules: app.rules
   }
 }
 

@@ -1,5 +1,5 @@
 import { VehicleTypes } from '../../utils/commonInterfaces'
-import { garages } from '../../test-data/data'
+import { garages, rules } from '../../test-data/data'
 import {
   ADD_TICKET,
   RESERVE_SPOT,
@@ -8,7 +8,8 @@ import {
 
 const defaultState = {
   garages: [...garages],
-  nextTicketId: 1000
+  nextTicketId: 1000,
+  rules
 }
 
 const garagesReducer = (state = defaultState, action) => {

@@ -18,17 +18,17 @@ export const deleteSpot = (spotId, garageId, level) => ({
   level
 })
 
-export const addTicket = (garageId, vehicleType, ticketId = 0) => {
+export const addTicket = (garageId, vehicleType, ticketId) => {
   const timeOfArrival =  new Date().toISOString()
 
   return function (dispatch, getState) {
-    const currentGarage = getState().root.app.garages.filter((garage) => garage.id === garageId)[0]
+    const currentGarage = getState().root.app.garages.find((garage) => garage.id === garageId)
     const spots = inGaragePerVehicle(currentGarage)
     if(spots[vehicleType].free) {
       dispatch({
         type: ADD_TICKET,
         ticket: {
-          ticketId,
+          id: ticketId,
           timeOfArrival
         },
         garageId: garageId,
