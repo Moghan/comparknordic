@@ -3,7 +3,8 @@ import { garages, rules } from '../../test-data/data'
 import {
   ADD_TICKET,
   RESERVE_SPOT,
-  DELETE_SPOT
+  DELETE_SPOT,
+  LOGOUT_TICKET
 } from '../actions'
 
 const defaultState = {
@@ -14,6 +15,42 @@ const defaultState = {
 
 const garagesReducer = (state = defaultState, action) => {
     switch (action.type) {
+      case LOGOUT_TICKET: {
+        console.log("logout reducer")
+        const newGarages = state.garages.map((garage) => {
+          if(garage.id === action.garage.id) {
+            const filteredTickets = garage.tickets.filter((ticket) => ticket.id !== action.ticket.id)
+            const newTickets = [...filteredTickets, action.ticket]
+            return {
+              ...garage,
+              tickets: newTickets,
+              floors: garage.floors.map((floor, index) => {
+                return {
+                  ...floor,
+                  spots: floor.spots.map((spot) => {
+                    if(spot.ticketId === action.ticket.id) {
+                      return {
+                        ...spot,
+                        free: true,
+                        ticketId: undefined
+                      }
+                    } else {
+                      return spot
+                    }
+                  })
+                }
+              })
+            }
+          } else {
+            return garage
+          }
+        })
+        console.log("new garages", newGarages)
+        return {
+          ...state,
+          garages: newGarages
+        }
+      }
       case DELETE_SPOT: {
         const newGarages = state.garages.map((garage) => {
           if(garage.id === action.garageId) {

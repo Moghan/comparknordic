@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { LogoutDialog } from './LogoutDialog'
+import { logoutTicket } from '../../redux/actions'
+import { ITicket } from '../../utils/commonInterfaces'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,42 +25,82 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface IExit extends RouteComponentProps {
   garage: any,
   availableSpots: number,
-  rules: any[]
+  rules: any[],
+  logoutTicket: (ticket: any, garage: any) => void
 }
 
-export function Exit({ garage, availableSpots, rules }: IExit) {
+export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false)
   const [code, setCode] = React.useState('')
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [ticket, setTicket] = React.useState<ITicket>({
+    timeOfArrival: '',
+    timeOfDeparture: '',
+    cost: 0,
+    id: 0
+  })
 
   const handleConfirm = () => {
     const idAsNumber = Number(code)
     if(isNaN(idAsNumber)) {
-      console.log("Code is not a number.")
-      return
+      setErrorMessage("Code is not a number.")
     }
     const isLoggedInTicket = garage.tickets.find((ticket: any) => ticket.id === idAsNumber)
-    console.log("isLoggedTicket", isLoggedInTicket)
-    if(!isLoggedInTicket) {
-      console.log("Ticket not found")
-      return
+    if(errorMessage ==='' && !isLoggedInTicket) {
+      setErrorMessage("Ticket not found")
+    } else if(isLoggedInTicket.timeOfDeparture) {
+      setErrorMessage("ticket has already been logged out")
     }
-    console.log("rules", rules)
-    const timeOfDeparture =  new Date()
-    console.log("timeOfArrival  ", isLoggedInTicket.timeOfArrival)
-    console.log("timeOfDeparture", timeOfDeparture.toISOString())
 
-    const lengthOfStay = Math.floor((timeOfDeparture.getTime() - new Date(isLoggedInTicket.timeOfArrival).getTime()) / 1000 /60 /60)
+    if(errorMessage !== '') {
+      console.log("error", errorMessage)
+      const timeOfDeparture =  new Date()
 
-    console.log("time of stay", lengthOfStay)
-    // logoutTicket(idAsNumber)
-    // getTicket(idAsNumber)
-    //setOpen(true)
+      const hoursFloat = (timeOfDeparture.getTime() - new Date(isLoggedInTicket.timeOfArrival).getTime()) / 1000 /60 /60
+      const hoursFloor = Math.floor(hoursFloat)
+      const partOfHourFloat = hoursFloat - hoursFloor
+
+      let costDetails = `Time of stay: ${hoursFloat}\n`
+      const defaultRule = rules.find((rule) => rule.hour === 0)
+      let lastIndex = 1
+      let cost = 0
+      for(let index = 1; index <= hoursFloor; index++) {
+        const rule = rules.find((rule) => rule.hour === index) || defaultRule
+        cost += rule.cost
+        costDetails = costDetails + `Cost hour ${index}: ${rule.cost}\n`
+        lastIndex = index
+      }
+      if(partOfHourFloat > 0) {
+        const rule = rules.find((rule) => rule.hour === lastIndex) || defaultRule
+        const lastCost = Math.floor(rule.cost * partOfHourFloat)
+        cost += lastCost
+        costDetails = costDetails + `Cost hour ${lastIndex}: ${lastCost}\n`
+      }
+      const updatedTicket = {
+        ...isLoggedInTicket,
+        timeOfDeparture: timeOfDeparture.toISOString(),
+        cost
+      }
+
+      costDetails = costDetails + `Total cost: ${cost}`
+
+      console.log(costDetails)
+      setTicket(updatedTicket)
+
+      logoutTicket(updatedTicket, garage)
+    }
+
+    setOpen(true)
   }
 
   const handleOnClose = () => {
     setOpen(false)
-    navigate(`/garages/${garage.id}`)
+    if(errorMessage === '') {
+      navigate(`/garages/${garage.id}`)
+    } else {
+      setErrorMessage('')
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +122,9 @@ export function Exit({ garage, availableSpots, rules }: IExit) {
           />
         </div>
         <Button variant="contained" color="primary" onClick={() => handleConfirm()}>Logout</Button>
-        <LogoutDialog open={open} onClose={handleOnClose} />
+        { ticket &&
+          <LogoutDialog open={open} onClose={handleOnClose} ticket={ticket} errorMessage={errorMessage}/>
+        }
 
       </form>
     </div>
@@ -99,4 +143,8 @@ const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   }
 }
 
-export default connect(mapStateToProps)(Exit)
+const mapDispatchToProps = (dispatch: any) => ({
+  logoutTicket: (ticket: any, garage: any) => {dispatch(logoutTicket(ticket, garage))}
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Exit)
