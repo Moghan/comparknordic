@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { LogoutDialog } from './LogoutDialog'
+import { ErrorDialog } from './ErrorDialog'
 import { logoutTicket } from '../../redux/actions'
 import { ITicket } from '../../utils/commonInterfaces'
 
@@ -31,7 +32,8 @@ export interface IExit extends RouteComponentProps {
 
 export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false)
+  const [openLogoutDialog, setOpenLogoutDialog] = React.useState(false)
+  const [openErrorDialog, setOpenErrorDialog] = React.useState(false)
   const [code, setCode] = React.useState('')
   const [errorMessage, setErrorMessage] = React.useState('')
   const [ticket, setTicket] = React.useState<ITicket>({
@@ -43,17 +45,26 @@ export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
 
   const handleConfirm = () => {
     const idAsNumber = Number(code)
+    let showErrorMessage = false
     if(isNaN(idAsNumber)) {
       setErrorMessage("Code is not a number.")
+      showErrorMessage = true
     }
     const isLoggedInTicket = garage.tickets.find((ticket: any) => ticket.id === idAsNumber)
-    if(errorMessage ==='' && !isLoggedInTicket) {
-      setErrorMessage("Ticket not found")
-    } else if(isLoggedInTicket.timeOfDeparture) {
-      setErrorMessage("ticket has already been logged out")
+    console.log("isLoggedInTicket", isLoggedInTicket)
+    if(!showErrorMessage) {
+      if(!isLoggedInTicket) {
+        setErrorMessage("Ticket not found")
+        showErrorMessage = true
+      } else if(isLoggedInTicket.timeOfDeparture) {
+        setErrorMessage("ticket has already been logged out")
+        showErrorMessage = true
+      }            
     }
 
-    if(errorMessage !== '') {
+    if(showErrorMessage) {
+      setOpenErrorDialog(true)
+    } else {
       console.log("error", errorMessage)
       const timeOfDeparture =  new Date()
 
@@ -84,18 +95,19 @@ export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
       }
 
       costDetails = costDetails + `Total cost: ${cost}`
-
       console.log(costDetails)
-      setTicket(updatedTicket)
 
+      setTicket(updatedTicket)
       logoutTicket(updatedTicket, garage)
+
+      setOpenLogoutDialog(true)
     }
 
-    setOpen(true)
   }
 
   const handleOnClose = () => {
-    setOpen(false)
+    setOpenLogoutDialog(false)
+    setOpenErrorDialog(false)
     if(errorMessage === '') {
       navigate(`/garages/${garage.id}`)
     } else {
@@ -122,10 +134,8 @@ export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
           />
         </div>
         <Button variant="contained" color="primary" onClick={() => handleConfirm()}>Logout</Button>
-        { ticket &&
-          <LogoutDialog open={open} onClose={handleOnClose} ticket={ticket} errorMessage={errorMessage}/>
-        }
-
+        <ErrorDialog open={openErrorDialog} onClose={handleOnClose} message={errorMessage}/>
+        <LogoutDialog open={openLogoutDialog} onClose={handleOnClose} ticket={ticket} />
       </form>
     </div>
   )
@@ -144,7 +154,7 @@ const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  logoutTicket: (ticket: any, garage: any) => {dispatch(logoutTicket(ticket, garage))}
+  logoutTicket: (ticket: ITicket, garage: any) => {dispatch(logoutTicket(ticket, garage))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exit)

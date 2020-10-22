@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
+import { ITicket } from '../../utils/commonInterfaces'
 
 const useStyles = makeStyles({
   dialogItem: {
@@ -19,31 +20,16 @@ const useStyles = makeStyles({
 export interface IBuyTicketDialog {
   open: boolean;
   onClose: () => void;
-  ticket: {
-    timeOfArrival: string;
-    timeOfDeparture: string;
-    cost: number;
-    id: number;
-  };
-  errorMessage: string;
+  ticket: ITicket
 }
 
 export function LogoutDialog(props: IBuyTicketDialog) {
   const classes = useStyles();
-  const { onClose, open, ticket, errorMessage } = props;
+  const { onClose, open, ticket } = props;
 
   const handleClose = () => {
     onClose();
   };
-  if(errorMessage) {
-    return (
-      <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-        <DialogTitle id="simple-dialog-title">{errorMessage}</DialogTitle>
-
-        <Button onClick={() => handleClose()}>Close</Button>
-      </Dialog>    
-    )
-  }
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
