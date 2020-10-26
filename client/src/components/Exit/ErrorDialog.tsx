@@ -1,20 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles({
-  dialogItem: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'baseline'
-  },
-  labelContainer: {
-    minWidth: 100
-  }
-});
 
 export interface IBuyTicketDialog {
   open: boolean;
@@ -23,7 +10,6 @@ export interface IBuyTicketDialog {
 }
 
 export function ErrorDialog(props: IBuyTicketDialog) {
-  const classes = useStyles();
   const { onClose, open, message } = props;
 
   const handleClose = () => {
@@ -32,7 +18,6 @@ export function ErrorDialog(props: IBuyTicketDialog) {
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">{message}</DialogTitle>
-
       <Button onClick={() => handleClose()}>Close</Button>
     </Dialog>
   )
