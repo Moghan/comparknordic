@@ -23,7 +23,7 @@ functions:
     events:
       - http:
           method: get
-          path: spots
+          path: spots/{garageId}
           cors: true
     iamRoleStatements:
       - Effect: Allow
@@ -31,6 +31,33 @@ functions:
           - dynamodb:Query
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SPOTS_TABLE}/index/${self:provider.environment.SPOT_ID_INDEX}
 
+  GetAllSpots:
+    handler: src/lambda/http/getAllSpots.handler
+    events:
+      - http:
+          method: get
+          path: spots
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Scan
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SPOTS_TABLE}
+
+  CreateSpot:
+    handler: src/lambda/http/createSpot.handler
+    events:
+      - http:
+          method: post
+          path: spots
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.SPOTS_TABLE}
+      
+      
 resources:
   Resources:
     SpotsDynamoDBTable:

@@ -6,7 +6,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 const XAWS = AWSXRay.captureAWS(AWS)
 
-import { SpotItem } from '../models/SpotItem'
+import { Spot } from '../models/Spot'
 
 export class SpotAccess {
 
@@ -16,7 +16,7 @@ export class SpotAccess {
         private readonly spotIdIndex = process.env.SPOT_ID_INDEX) {
     }
 
-    async getAllSpots(garageId): Promise<SpotItem[]> {
+    async getSpots(garageId): Promise<Spot[]> {
 
         const result = await this.docClient.query({
             TableName : this.spotsTable,
@@ -31,13 +31,31 @@ export class SpotAccess {
         }).promise()
 
         const items = result.Items
-        return items as SpotItem[]
+        return items as Spot[]
     }
 
+    async getAllSpots(): Promise<Spot[]> {
+
+        const result = await this.docClient.scan({
+            TableName : this.spotsTable,
+        }).promise()
+
+        const items = result.Items
+        return items as Spot[]
+    }
+
+    async createSpot(spot: Spot): Promise<Spot> {
+        await this.docClient.put({
+          TableName: this.spotsTable,
+          Item: spot
+        }).promise()
+    
+        return spot
+      }
 }
 
 function createDynamoDBClient() {
-    // Spot
+    // Todo
     if (process.env.IS_OFFLINE) {
         console.log('Creating a local DynamoDB instance')
         return new XAWS.DynamoDB.DocumentClient({

@@ -1,12 +1,11 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
-import { getSpots } from '../../businessLogic/spots'
+import { getAllSpots } from '../../businessLogic/spots'
 
 export const handler: APIGatewayProxyHandler = async (event, _context) => {
-  console.log("from lambda getSpots EVENT", event)
-  
-  const garageId = event.pathParameters.garageId
-  const spots = await getSpots(garageId)
+  console.log("from lambda getAllSpots EVENT", event)
+
+  const spots = await getAllSpots()
 
   return {
     statusCode: 200,
