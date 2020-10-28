@@ -1,9 +1,15 @@
 import { Spot } from '../models/Spot'
 import { SpotAccess } from '../dataLayer/spotAccess'
 import { CreateSpotRequest } from '../requests/CreateSpotRequest'
+import { UpdateSpotRequest } from '../requests/UpdateSpotRequest'
 import { v4 as uuidv4 } from 'uuid'
 
 const spotAccess = new SpotAccess()
+
+export async function getSpot(spotId: string): Promise<Spot> {
+  
+  return spotAccess.getSpot(spotId)
+}
 
 export async function getSpots(garageId: string): Promise<Spot[]> {
   
@@ -26,6 +32,10 @@ export async function createSpot(
     garageId: createSpotRequest.garageId,
     vehicleType: createSpotRequest.vehicleType,
     free: true,
-    ticket: undefined
+    ticketId: undefined
   })
+}
+
+export async function updateSpot(spot: Spot, update: UpdateSpotRequest): Promise<UpdateSpotRequest> {
+  return await spotAccess.updateSpot(spot, update)
 }

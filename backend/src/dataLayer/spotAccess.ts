@@ -7,6 +7,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 const XAWS = AWSXRay.captureAWS(AWS)
 
 import { Spot } from '../models/Spot'
+import { UpdateSpotRequest } from '../requests/UpdateSpotRequest'
 
 export class SpotAccess {
 
@@ -14,6 +15,19 @@ export class SpotAccess {
         private readonly docClient: DocumentClient = createDynamoDBClient(),
         private readonly spotsTable = process.env.SPOTS_TABLE,
         private readonly spotIdIndex = process.env.SPOT_ID_INDEX) {
+    }
+
+    async getSpot(spotId): Promise<Spot> {
+
+        const result = await this.docClient.get({
+            TableName : this.spotsTable,
+            Key: {
+                id: spotId
+            }
+        }).promise()
+
+        const item = result.Item
+        return item as Spot
     }
 
     async getSpots(garageId): Promise<Spot[]> {
@@ -52,6 +66,29 @@ export class SpotAccess {
     
         return spot
       }
+
+    async updateSpot(spot: Spot, update: UpdateSpotRequest): Promise<UpdateSpotRequest> {
+        const result = await this.docClient.update({
+            TableName: this.spotsTable,
+            Key:{
+                "id": spot.id,
+            },
+            UpdateExpression: "set ticketId = :ticketId, #free=:free",
+            ExpressionAttributeNames: {
+                '#free': 'free'
+            },
+            ExpressionAttributeValues:{
+                ":ticketId":update.ticketId,
+                ":free":update.free
+            },
+            ReturnValues:"UPDATED_NEW"
+        }).promise()
+        
+        console.log("updateTodo - result", result)
+
+        // Todo: is this a good return value?
+        return update
+    }
 }
 
 function createDynamoDBClient() {
