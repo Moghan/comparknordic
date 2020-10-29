@@ -13,6 +13,8 @@ import Floor from './components/Floor'
 import Manage from './components/Manage'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Breadcrumbs from './components/Breadcrumbs'
+import { loadDb } from './redux/actions'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,8 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function App() {
+function App({loadDb}: any) {
   const classes = useStyles();
+  React.useEffect(() => {
+    console.log("App - onMount")
+    const db = loadDb()
+  }, [])
 
   return (
     <div>
@@ -53,4 +59,13 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ({root: {app}}: any) => {
+  console.log("state", app)
+  return {}
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  loadDb: () => {dispatch(loadDb())}
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -4,7 +4,8 @@ import {
   ADD_TICKET,
   RESERVE_SPOT,
   DELETE_SPOT,
-  LOGOUT_TICKET
+  LOGOUT_TICKET,
+  LOAD_DB
 } from '../actions'
 
 const defaultState = {
@@ -15,6 +16,13 @@ const defaultState = {
 
 const garagesReducer = (state = defaultState, action) => {
     switch (action.type) {
+      case LOAD_DB: {
+        return {
+          ...state,
+          spots: action.spots,
+          tickets: action.tickets
+        }
+      }
       case LOGOUT_TICKET: {
         console.log("logout reducer")
         const newGarages = state.garages.map((garage) => {

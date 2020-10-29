@@ -2,7 +2,7 @@ import { VehicleTypes } from '../utils/commonInterfaces'
 
 const garages = [
     {
-        id: "1001",
+        id: "1",
         name: "test-data-garage",
         description: "just a test object",
         floors: [
@@ -86,7 +86,7 @@ const garages = [
         ]
     },
     {
-        id: "2002",
+        id: "2",
         name: "Second Garage",
         description: "another test string",
         floors: [
