@@ -59,7 +59,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"garageId\": \"2\",\r\n    \"vehicleType\": \"1\"\r\n}"
+					"raw": "{\r\n    \"garageId\": \"2\",\r\n    \"vehicleType\": \"4\",\r\n    \"floor\": \"0\"\r\n}"
 				},
 				"url": {
 					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spots",
@@ -265,7 +265,7 @@
 	],
 	"variable": [
 		{
-			"id": "223d3018-18d2-41e1-9360-d6fe6c321b38",
+			"id": "bcec7098-d401-4f97-9101-7d8747ab6fb7",
 			"key": "apiid",
 			"value": ""
 		}
