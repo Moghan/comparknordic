@@ -6,7 +6,8 @@ import FloorCard from './FloorCard'
 import EntryCard from './EntryCard'
 import ExitCard from './ExitCard'
 import { connect } from 'react-redux'
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
+import { Spot } from '../../types/Spot'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,10 +46,10 @@ export function Garage(props: IGarage) {
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const currentGarage = app.garages.find((g: any) => g.id === garageId)
+  const availableSpots = app.spots.filter((spot: Spot) => spot.garageId === garageId).length
+
   console.log("curr garage", currentGarage)
-  const availableSpots = currentGarage.floors.map((floor: any) => 
-    floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)
-  
+
   return {
     currentGarage,
     availableSpots

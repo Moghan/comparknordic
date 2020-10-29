@@ -4,4 +4,5 @@ export interface Spot {
   vehicleType: number
   free: boolean
   ticketId: string
+  floor: number
 }

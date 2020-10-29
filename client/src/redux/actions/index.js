@@ -3,13 +3,11 @@ import { getSpots } from '../../api/spots-api'
 import { getTickets } from '../../api/tickets-api'
 import { apiEndpoint } from '../../config'
 
-
 export const ADD_TICKET = 'ADD_TICKET'
 export const RESERVE_SPOT = 'RESERVE_SPOT'
 export const DELETE_SPOT = 'DELETE_SPOT'
 export const LOGOUT_TICKET = 'LOGOUT_TICKET'
 export const LOAD_DB = 'LOAD_DB'
-
 
 const reserveSpot = (garageId, vehicleType, id) => ({
   type: RESERVE_SPOT,

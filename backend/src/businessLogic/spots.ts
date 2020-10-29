@@ -32,7 +32,8 @@ export async function createSpot(
     garageId: createSpotRequest.garageId,
     vehicleType: createSpotRequest.vehicleType,
     free: true,
-    ticketId: undefined
+    ticketId: undefined,
+    floor: createSpotRequest.floor
   })
 }
 

@@ -11,7 +11,9 @@ import {
 const defaultState = {
   garages: [...garages],
   nextTicketId: 1000,
-  rules
+  rules,
+  spots: [],
+  tickets: []
 }
 
 const garagesReducer = (state = defaultState, action) => {
