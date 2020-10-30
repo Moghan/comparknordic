@@ -162,8 +162,6 @@ resources:
             AttributeType: S
           - AttributeName: garageId
             AttributeType: S
-          - AttributeName: createdAt
-            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
@@ -174,8 +172,6 @@ resources:
             KeySchema:
               - AttributeName: garageId
                 KeyType: HASH
-              - AttributeName: createdAt
-                KeyType: RANGE
             Projection:
               ProjectionType: ALL
 

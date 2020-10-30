@@ -35,12 +35,9 @@ export class SpotAccess {
         const result = await this.docClient.query({
             TableName : this.spotsTable,
             IndexName : this.spotIdIndex,
-            KeyConditionExpression: "#k_spot = :v_spot",
-            ExpressionAttributeNames:{
-            "#k_spot": "garageId"
-            },
+            KeyConditionExpression: "garageId = :garageId",
             ExpressionAttributeValues: {
-                ":v_spot": garageId
+                ":garageId": garageId
             }
         }).promise()
 

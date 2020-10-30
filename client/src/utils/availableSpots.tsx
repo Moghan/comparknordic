@@ -26,7 +26,7 @@ export const inGaragePerVehicle = (garage: any) => {
         if(isNaN(Number(type))) {
             const totalPerFloor = garage.floors.map((floor: any) =>
                 floor.spots.filter((spot: any) =>
-                    spot.type === VehicleTypes[type]))
+                    spot.vehicleType === VehicleTypes[type]))
             
             const freePerFloor = totalPerFloor.map((floor: any) =>
                 floor.filter((spot: any) =>
@@ -43,13 +43,15 @@ export const inGaragePerVehicle = (garage: any) => {
     return spotsPerVehicle
 }
 
-export const onFloorPerVehicle = (floor: any) => {
+export const onFloorPerVehicle = (spots: any) => {
     let onFloorPerVehicle: any = {};
 
     for(const type in VehicleTypes) {
         if(isNaN(Number(type))) {
-            const total = floor.spots.filter((spot: any) =>
-                spot.type === VehicleTypes[type])
+            const total = spots.filter((spot: any) =>{
+                console.log("spot", spot, VehicleTypes[type])
+                return spot.vehicleType === VehicleTypes[type]
+            })
             
             const free = total.filter((spot: any) =>
                 spot.free)

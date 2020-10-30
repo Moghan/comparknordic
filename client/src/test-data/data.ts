@@ -5,6 +5,7 @@ const garages = [
         id: "1",
         name: "test-data-garage",
         description: "just a test object",
+        noFloors: 2,
         floors: [
             {
                 spots: [
@@ -89,6 +90,7 @@ const garages = [
         id: "2",
         name: "Second Garage",
         description: "another test string",
+        noFloors: 1,
         floors: [
             {
                 spots: [

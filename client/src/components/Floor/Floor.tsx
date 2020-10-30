@@ -7,11 +7,11 @@ import { onFloorPerVehicle } from '../../utils/availableSpots'
 
 export interface IFloor extends RouteComponentProps {
   garage: any,
-  availableSpots: number,
+  spots: any,
   level?: string
 }
 
-export function Floor({ garage, availableSpots, level }: IFloor) {
+export function Floor({ garage, level, spots }: IFloor) {
 
   const title = Number(level) === 0 ? "Floor level : Ground" : `Floor level: ${level}`
   
@@ -21,7 +21,9 @@ export function Floor({ garage, availableSpots, level }: IFloor) {
     )
   }
 
-  const floorData = onFloorPerVehicle(garage.floors[level])
+  console.log("garage.floors[level]", garage.floors[level])
+  console.log("spots", spots)
+  const floorData = onFloorPerVehicle(spots)
 
   return (
     <>
@@ -39,12 +41,11 @@ export function Floor({ garage, availableSpots, level }: IFloor) {
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const garage = app.garages.find((g: any) => g.id === garageId)
-  const availableSpots = garage.floors.map((floor: any) => 
-    floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)
+  const spots = app.spots.filter((spot: any) => spot.garageId === garageId)
   
   return {
     garage,
-    availableSpots
+    spots
   }
 }
 

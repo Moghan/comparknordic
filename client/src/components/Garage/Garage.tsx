@@ -20,13 +20,21 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IGarage extends RouteComponentProps {
   currentGarage: any,
   garageId?: string,
-  availableSpots: number
+  availableSpots: number,
+  spots: any
 }
 
 export function Garage(props: IGarage) {
-  const { garageId, availableSpots, currentGarage } = props
+  const { garageId, availableSpots, currentGarage, spots } = props
   const classes = useStyles();
   
+
+  const floors = []
+  for(let i = 0 ; i < currentGarage.noFloors ; i++) {
+    floors[i] = spots.filter((spot: any) => Number(spot.floor) === i)
+  }
+  console.log("floors", floors)
+
   return (
     <div className={classes.root}>
       <Button variant="contained" onClick={() => navigate(`/manage/${garageId}`)}>Manage this garage...</Button>
@@ -35,9 +43,11 @@ export function Garage(props: IGarage) {
         availableSpots={availableSpots}
         garageId={garageId}
       />
-      { currentGarage.floors.map((floor: any, index: number) => (
-        <FloorCard key={index} garageId={garageId} floor={floor} level={index} />
-      ))}
+      { floors.map((spotsOnFloor: any, index: number) => (
+        <FloorCard key={index} garageId={garageId} spots={spotsOnFloor} level={index} />
+      ))
+       
+      }
       <EntryCard garageId={garageId} />
       <ExitCard garageId={garageId} />
     </div>
@@ -46,13 +56,15 @@ export function Garage(props: IGarage) {
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const currentGarage = app.garages.find((g: any) => g.id === garageId)
+  const spots = app.spots.filter((spot: Spot) => spot.garageId === garageId)
   const availableSpots = app.spots.filter((spot: Spot) => spot.garageId === garageId).length
 
   console.log("curr garage", currentGarage)
 
   return {
     currentGarage,
-    availableSpots
+    availableSpots,
+    spots
   }
 }
 
