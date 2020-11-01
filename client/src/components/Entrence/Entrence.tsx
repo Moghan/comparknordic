@@ -3,6 +3,7 @@ import '../../App.css';
 import { RouteComponentProps } from "@reach/router"
 import { connect } from 'react-redux'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { totalGarage } from '../../utils/availableSpots'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,20 +22,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface IEntrence extends RouteComponentProps {
   garage: any,
-  availableSpots: number
+  spotsState: {
+    free: number,
+    total: number
+  }
 }
 
-export function Entrence({ garage, availableSpots }: IEntrence) {
+export function Entrence({ garage, spotsState }: IEntrence) {
   const classes = useStyles();
 
   return (
     <>
       <h1>Welcome to {garage.name}</h1>
       <div className={classes.root}>
-        { availableSpots === 0 ?
+        { spotsState.free === 0 ?
             <h1 className={classes.garageFull}>GARAGE IS FULL</h1>
           :
-            <div><h1 className={classes.freeSpots}>{availableSpots}</h1> spots are available.</div>
+            <div><h1 className={classes.freeSpots}>{spotsState.free}</h1> spots are available.</div>
         }
       </div>
     </>
@@ -43,12 +47,11 @@ export function Entrence({ garage, availableSpots }: IEntrence) {
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const garage = app.garages.find((g: any) => g.id === garageId)
-  const availableSpots = garage.floors.map((floor: any) => 
-    floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)
+  const spotsState = totalGarage(garage, app.spots)
   
   return {
     garage,
-    availableSpots
+    spotsState
   }
 }
 

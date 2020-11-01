@@ -48,9 +48,10 @@ export const addTicket = (garageId, vehicleType, ticketId) => {
   const timeOfArrival =  new Date().toISOString()
 
   return function (dispatch, getState) {
-    const currentGarage = getState().root.app.garages.find((garage) => garage.id === garageId)
-    const spots = inGaragePerVehicle(currentGarage)
-    if(spots[vehicleType].free) {
+    const { garages, spots } = getState().root.app
+    const garage = garages.find((garage) => garage.id === garageId)
+    const spotsPerVehicle = inGaragePerVehicle(spots.filter((spot) => spot.garageId === garage.id ))
+    if(spotsPerVehicle[vehicleType].free) {
       dispatch({
         type: ADD_TICKET,
         ticket: {

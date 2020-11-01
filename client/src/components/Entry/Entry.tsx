@@ -14,6 +14,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 import { BuyTicketDialog } from './BuyTicketDialog'
 import { addTicket } from '../../redux/actions'
+import { Spot } from '../../types/Spot'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,12 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface IEntry extends RouteComponentProps {
   garage: any,
-  availableSpots: number,
+  spots: Spot[],
   nextTicketId: number,
   addTicket: (garageId: string, vehicleType: string, nextTicketId: number) => void
 }
 
-export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntry) {
+export function Entry({ garage, spots, addTicket, nextTicketId }: IEntry) {
   const classes = useStyles()
   const [value, setValue] = React.useState('')
   const [open, setOpen] = React.useState(false)
@@ -65,7 +66,7 @@ export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntr
     navigate(`/garages/${garage.id}`)
   }
 
-  const spotsPerVehicle = inGaragePerVehicle(garage)
+  const spotsPerVehicle = inGaragePerVehicle(spots)
 
   return (
     <div className={classes.root}>
@@ -115,12 +116,11 @@ export function Entry({ garage, availableSpots, addTicket, nextTicketId }: IEntr
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const garage = app.garages.find((g: any) => g.id === garageId)
-  const availableSpots = garage.floors.map((floor: any) => 
-    floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)
+  const spots = app.spots.filter((spot: any) => spot.garageId === garage.id)
   
   return {
     garage,
-    availableSpots,
+    spots,
     nextTicketId: app.nextTicketId
   }
 }

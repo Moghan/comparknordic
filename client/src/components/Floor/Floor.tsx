@@ -21,8 +21,6 @@ export function Floor({ garage, level, spots }: IFloor) {
     )
   }
 
-  console.log("garage.floors[level]", garage.floors[level])
-  console.log("spots", spots)
   const floorData = onFloorPerVehicle(spots)
 
   return (

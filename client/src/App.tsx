@@ -28,10 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function App({loadDb}: any) {
   const classes = useStyles();
-  React.useEffect(() => {
-    console.log("App - onMount")
-    const db = loadDb()
-  }, [])
+  React.useEffect(loadDb, [])
 
   return (
     <div>
