@@ -55,11 +55,10 @@ export function Garage(props: IGarage) {
 }
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
+  console.log("app", app)
   const currentGarage = app.garages.find((g: any) => g.id === garageId)
   const spots = app.spots.filter((spot: Spot) => spot.garageId === garageId)
-  const availableSpots = app.spots.filter((spot: Spot) => spot.garageId === garageId).length
-
-  console.log("curr garage", currentGarage)
+  const availableSpots = app.spots.filter((spot: Spot) => spot.free && spot.garageId === garageId).length
 
   return {
     currentGarage,

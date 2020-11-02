@@ -9,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import { LogoutDialog } from './LogoutDialog'
 import { ErrorDialog } from './ErrorDialog'
 import { logoutTicket } from '../../redux/actions'
-import { ITicket } from '../../utils/commonInterfaces'
+import { Ticket } from '../../types/Ticket'
+import { Spot } from '../../types/Spot'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,33 +26,36 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export interface IExit extends RouteComponentProps {
   garage: any,
-  availableSpots: number,
+  spots: Spot[],
+  tickets: Ticket[],
   rules: any[],
   logoutTicket: (ticket: any, garage: any) => void
 }
 
-export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
+export function Exit({ garage, spots, tickets, rules, logoutTicket }: IExit) {
   const classes = useStyles();
   const [openLogoutDialog, setOpenLogoutDialog] = React.useState(false)
   const [openErrorDialog, setOpenErrorDialog] = React.useState(false)
   const [code, setCode] = React.useState('')
   const [errorMessage, setErrorMessage] = React.useState('')
-  const [ticket, setTicket] = React.useState<ITicket>({
+  const [ticket, setTicket] = React.useState<Ticket>({
     timeOfArrival: '',
     timeOfDeparture: '',
     cost: 0,
-    id: 0
+    id: "",
+    garageId: "",
+    code: 0
   })
 
   const handleConfirm = () => {
-    const idAsNumber = Number(code)
+    const codeAsNumber = Number(code)
+    console.log("idasnumnber", codeAsNumber)
     let showErrorMessage = false
-    if(isNaN(idAsNumber)) {
+    if(isNaN(codeAsNumber)) {
       setErrorMessage("Code is not a number.")
       showErrorMessage = true
     }
-    const isLoggedInTicket = garage.tickets.find((ticket: any) => ticket.id === idAsNumber)
-    console.log("isLoggedInTicket", isLoggedInTicket)
+    const isLoggedInTicket = tickets.find((ticket: Ticket) => ticket.code === codeAsNumber)
     if(!showErrorMessage) {
       if(!isLoggedInTicket) {
         setErrorMessage("Ticket not found")
@@ -62,7 +66,7 @@ export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
       }            
     }
 
-    if(showErrorMessage) {
+    if(showErrorMessage || !isLoggedInTicket) {
       setOpenErrorDialog(true)
     } else {
       console.log("error", errorMessage)
@@ -143,18 +147,19 @@ export function Exit({ garage, availableSpots, rules, logoutTicket }: IExit) {
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const garage = app.garages.find((g: any) => g.id === garageId)
-  const availableSpots = garage.floors.map((floor: any) => 
-    floor.spots.filter((spot: any) => spot.free).length).reduce((a: number, b: number) => a + b, 0)
+  const tickets = app.tickets.filter((ticket: Ticket) => ticket.garageId === garageId)
+  const spots = app.spots.filter((spot: Spot) => spot.garageId === garageId)
   
   return {
     garage,
-    availableSpots,
+    spots,
+    tickets,
     rules: app.rules
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  logoutTicket: (ticket: ITicket, garage: any) => {dispatch(logoutTicket(ticket, garage))}
+  logoutTicket: (ticket: Ticket, garage: any) => {dispatch(logoutTicket(ticket, garage))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exit)

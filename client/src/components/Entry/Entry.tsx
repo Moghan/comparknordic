@@ -87,16 +87,16 @@ export function Entry({ garage, spots, addTicket, nextTicketId }: IEntry) {
             label="Large"
           />
           <FormControlLabel
-            disabled={spotsPerVehicle.Motorcycle.free === 0}
-            value="Motorcycle"
-            control={<Radio />}
-            label="Motorcycle"
-          />
-          <FormControlLabel
             disabled={spotsPerVehicle.Handicapped.free === 0}
             value="Handicapped"
             control={<Radio />}
             label="Handicapped"
+          />
+          <FormControlLabel
+            disabled={spotsPerVehicle.Motorcycle.free === 0}
+            value="Motorcycle"
+            control={<Radio />}
+            label="Motorcycle"
           />
         </RadioGroup>
       </FormControl>

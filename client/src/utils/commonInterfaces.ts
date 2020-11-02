@@ -4,10 +4,3 @@ export enum VehicleTypes {
     Handicapped,
     Motorcycle
 }
-
-export interface ITicket {
-    timeOfArrival: string;
-    timeOfDeparture: string;
-    cost: number;
-    id: number;
-  };

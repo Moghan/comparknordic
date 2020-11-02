@@ -19,7 +19,8 @@ export async function createTicket(
     garageId: createTicketRequest.garageId,
     timeOfArrival: 'time_string',
     timeOfDeparture: undefined,
-    cost: undefined
+    cost: undefined,
+    code: createTicketRequest.code
   })
 }
 

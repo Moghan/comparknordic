@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
-import { ITicket } from '../../utils/commonInterfaces'
+import { Ticket } from '../../types/Ticket'
 
 const useStyles = makeStyles({
   dialogItem: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 export interface IBuyTicketDialog {
   open: boolean;
   onClose: () => void;
-  ticket: ITicket
+  ticket: Ticket
 }
 
 export function LogoutDialog(props: IBuyTicketDialog) {

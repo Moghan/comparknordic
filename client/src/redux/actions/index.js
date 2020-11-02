@@ -19,7 +19,6 @@ const reserveSpot = (garageId, vehicleType, id) => ({
 export const loadDb = () => async (dispatch) => {
   const spots = await getSpots(`${apiEndpoint}/spots`)
   const tickets = await getTickets(`${apiEndpoint}/tickets`)
-  console.log("spots, tickets", spots, tickets)
 
   dispatch({
     type: LOAD_DB,
@@ -29,7 +28,6 @@ export const loadDb = () => async (dispatch) => {
 }
 
 export const logoutTicket = (ticket, garage) => {
-  console.log("logoutTicket action")
   return ({
     type: LOGOUT_TICKET,
     garage,
@@ -48,17 +46,17 @@ export const addTicket = (garageId, vehicleType, ticketId) => {
   const timeOfArrival =  new Date().toISOString()
 
   return function (dispatch, getState) {
-    const { garages, spots } = getState().root.app
-    const garage = garages.find((garage) => garage.id === garageId)
-    const spotsPerVehicle = inGaragePerVehicle(spots.filter((spot) => spot.garageId === garage.id ))
+    const { spots } = getState().root.app
+    const spotsPerVehicle = inGaragePerVehicle(spots.filter((spot) => spot.garageId === garageId ))
     if(spotsPerVehicle[vehicleType].free) {
       dispatch({
         type: ADD_TICKET,
         ticket: {
           id: ticketId,
-          timeOfArrival
+          code:ticketId,
+          timeOfArrival,
+          garageId,
         },
-        garageId: garageId,
       })
       // Making the reservation here for now.
       dispatch(reserveSpot(garageId, vehicleType, ticketId))

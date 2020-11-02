@@ -4,4 +4,5 @@ export interface Ticket {
   timeOfArrival: string
   timeOfDeparture: string
   cost: number
+  code: number
 }
