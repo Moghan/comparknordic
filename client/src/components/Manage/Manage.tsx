@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import { deleteSpot } from '../../redux/actions'
+import { Spot } from '../../types/Spot'
 
 const useStyles = makeStyles({
   table: {
@@ -23,10 +24,11 @@ const useStyles = makeStyles({
 
 export interface IManage extends RouteComponentProps {
   garage: any,
-  deleteSpot: (spotId: number, garageId: string, level: number) => void
+  deleteSpot: (spotId: string, garageId: string, level: number) => void,
+  spots: Spot[]
 }
 
-export function Manage({ garage, deleteSpot }: IManage) {
+export function Manage({ garage, deleteSpot, spots }: IManage) {
   const classes = useStyles();
 
   return (
@@ -44,17 +46,17 @@ export function Manage({ garage, deleteSpot }: IManage) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {garage.floors.map((floor: any, index: number) => floor.spots.map((row: any) => (
-            <TableRow key={row.id}>
+          { spots.map((spot: Spot) => (
+            <TableRow key={spot.id}>
               <TableCell component="th" scope="row">
-                {row.id}
+                {spot.id}
               </TableCell>
-              <TableCell align="right">{index}</TableCell>
-              <TableCell align="right">{row.type}</TableCell>
-              <TableCell align="right">{row.free ? 'true' : 'false'}</TableCell>
-              <TableCell align="right"><IconButton onClick={() => deleteSpot(row.id, garage.id, index)}><Delete /></IconButton></TableCell>
+              <TableCell align="right">{spot.floor}</TableCell>
+              <TableCell align="right">{spot.vehicleType}</TableCell>
+              <TableCell align="right">{spot.free ? 'true' : 'false'}</TableCell>
+              <TableCell align="right"><IconButton onClick={() => deleteSpot(spot.id, garage.id, spot.floor)}><Delete /></IconButton></TableCell>
             </TableRow>
-          )))}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
@@ -64,14 +66,16 @@ export function Manage({ garage, deleteSpot }: IManage) {
 
 const mapStateToProps = ({root: {app}}: any, { garageId }: any) => {
   const garage = app.garages.find((g: any) => g.id === garageId)
+  const spots = app.spots.filter((spot: Spot) => spot.garageId === garageId)
   
   return {
     garage,
+    spots
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-  deleteSpot: (spotId: number, garageId: string, level: number) => {dispatch(deleteSpot(spotId, garageId, level))}
+  deleteSpot: (spotId: string, garageId: string, level: number) => {dispatch(deleteSpot(spotId, garageId, level))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manage)

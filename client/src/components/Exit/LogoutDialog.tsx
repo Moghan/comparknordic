@@ -4,23 +4,28 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
+import { Ticket } from '../../types/Ticket'
 
 const useStyles = makeStyles({
   dialogItem: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'baseline'
+  },
+  labelContainer: {
+    minWidth: 100
   }
 });
 
 export interface IBuyTicketDialog {
   open: boolean;
   onClose: () => void;
+  ticket: Ticket
 }
 
 export function LogoutDialog(props: IBuyTicketDialog) {
   const classes = useStyles();
-  const { onClose, open } = props;
+  const { onClose, open, ticket } = props;
 
   const handleClose = () => {
     onClose();
@@ -30,35 +35,27 @@ export function LogoutDialog(props: IBuyTicketDialog) {
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">Your ticket is logged out. Welcome back.</DialogTitle>
       <div className={classes.dialogItem}>
-        <Typography variant="subtitle2" gutterBottom>
-            Logged in:
+        <Typography className={classes.labelContainer} variant="subtitle2" gutterBottom>
+            Arrival:
         </Typography>
         <Typography variant="body2" gutterBottom>
-            00-00-00
+            {ticket.timeOfArrival}
         </Typography>
       </div>
       <div className={classes.dialogItem}>
-        <Typography variant="subtitle2" gutterBottom>
-            Logged out:
+        <Typography className={classes.labelContainer} variant="subtitle2" gutterBottom>
+            Departure:
         </Typography>
         <Typography variant="body2" gutterBottom>
-            00-00-00
+          {ticket.timeOfDeparture}
         </Typography>
       </div>
       <div className={classes.dialogItem}>
-        <Typography variant="subtitle2" gutterBottom>
-            Time of visit:
+        <Typography className={classes.labelContainer} variant="subtitle2" gutterBottom>
+            Payment:
         </Typography>
         <Typography variant="body2" gutterBottom>
-            xx-xx-xx
-        </Typography>
-      </div>
-      <div className={classes.dialogItem}>
-        <Typography variant="subtitle2" gutterBottom>
-            Amount to pay:
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-            xxxx NOK
+          {ticket.cost} NOK
         </Typography>
       </div>
       <Button onClick={() => handleClose()}>Close</Button>

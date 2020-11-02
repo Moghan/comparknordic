@@ -1,110 +1,83 @@
 import { VehicleTypes } from '../../utils/commonInterfaces'
-import { garages } from '../../test-data/data'
+import { garages, rules } from '../../test-data/data'
 import {
   ADD_TICKET,
   RESERVE_SPOT,
-  DELETE_SPOT
+  DELETE_SPOT,
+  LOGOUT_TICKET,
+  LOAD_DB
 } from '../actions'
 
 const defaultState = {
   garages: [...garages],
-  nextTicketId: 1000
+  nextTicketId: 1000,
+  rules,
+  spots: [],
+  tickets: []
 }
 
 const garagesReducer = (state = defaultState, action) => {
     switch (action.type) {
-      case DELETE_SPOT: {
-        const newGarages = state.garages.map((garage) => {
-          if(garage.id === action.garageId) {
-            return {
-              ...garage,
-              floors: garage.floors.map((floor, index) => {
-                if(index === action.level) {
-                  return {
-                    ...floor,
-                    spots: floor.spots.filter((spot) => spot.id !== action.spotId) 
-                  }
-                } else {
-                  return floor
-                }
-              })
-            }
-          } else {
-            return garage
-          }
-        })
+      case LOAD_DB: {
         return {
           ...state,
-          garages: newGarages,
+          spots: action.spots,
+          tickets: action.tickets
+        }
+      }
+
+      case LOGOUT_TICKET: {
+        const filteredTickets = state.tickets.filter((ticket) => ticket.id !== action.ticket.id)
+        const newTickets = [...filteredTickets, action.ticket]
+        
+        const oldSpot = state.spots.find((spot) => spot.ticketId === action.ticket.id)
+        const updatedSpot = {
+          ...oldSpot,
+          free: true,
+          ticketId: undefined
+        }
+        const filteredSpots = state.spots.filter((spot) => spot.ticketId !== action.ticket.id)
+        const newSpots = [...filteredSpots, updatedSpot]
+
+        return {
+          ...state,
+          ticket: newTickets,
+          spots: newSpots
+        }
+      }
+
+      case DELETE_SPOT: {
+        return {
+          ...state,
+          spots: state.spots.filter((spot) => spot.id !== action.spotId) 
         }
       }
 
       case ADD_TICKET: {
-        const newGarages = state.garages.map((garage) => {
-          if(garage.id === action.garageId) {
-            return {
-              ...garage,
-              tickets: [...garage.tickets, action.ticket]
-            }
-          } else {
-            return garage
-          }
-        })
         return {
           ...state,
-          garages: newGarages,
+          tickets: [...state.tickets, action.ticket],
           nextTicketId: state.nextTicketId + 1
         }
       }
 
       case RESERVE_SPOT:
-        let resFloor = 0
-        let resSpot = 0
-        const newGarages = state.garages.map((garage) => {
-          if(garage.id === action.garageId) {
 
-            // e.g [-1, 6] -> no free spot on level 0, first free on position 6 on level 1
-            const firstFreePerFloor = garage.floors.map((floor) =>
-              floor.spots.findIndex((spot) =>
-                spot.free && spot.type === VehicleTypes[action.vehicleType]))
+        const firstFreeSpot = state.spots.find((spot) =>
+          spot.free && spot.garageId === action.garageId && spot.vehicleType === VehicleTypes[action.vehicleType])
+        const filteredSpots = state.spots.filter((spot ) => spot.id !== firstFreeSpot.id)
+        const reservedSpot = {
+          ...firstFreeSpot,
+          free: false,
+          ticketId: action.ticketId
+        }
 
-            for(const [floorNo, spotNo] of firstFreePerFloor.entries()) {
-              if(spotNo !== -1) {
-                resFloor = floorNo
-                resSpot = spotNo
-                break
-              }
-            }
-            return {
-              ...garage,
-              floors: garage.floors.map((floor, index) => {
-                if(index === resFloor) {
-                  return {
-                    ...floor,
-                    spots: floor.spots.map((spot, index) => {
-                      if(index === resSpot) {
-                        return {
-                          ...spot,
-                          free: false,
-                          ticketId: action.ticketId
-                        } 
-                      } else {
-                        return spot
-                      }
-                    })
-                  }
-                } else {
-                  return floor
-                }
-              })
-            }
-          } else {
-            return garage
-          }
-        })
         return {
           ...state,
-          garages: newGarages
+          spots: [
+            ...filteredSpots,
+            reservedSpot
+          ]
         }
 
       default:

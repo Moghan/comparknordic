@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { green, red } from '@material-ui/core/colors';
 import { navigate } from '@reach/router'
 import { totalGarage } from '../../utils/availableSpots'
+import { Spot } from '../../types/Spot'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,12 +24,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IGarageCard {
-  garage: any
+  garage: any,
+  spots: Spot[]
 }
 
-export default function AboutCard({garage}: IGarageCard) {
+export default function AboutCard({garage, spots}: IGarageCard) {
   const classes = useStyles();
-  const { total, free } = totalGarage(garage)
+  const { total, free } = totalGarage(garage, spots)
   const isFull = free === 0
   
   return (

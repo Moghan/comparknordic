@@ -16,15 +16,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IFloorCard {
   garageId?: string,
-  floor: any,
+  spots: any,
   level: number
 }
 
-export default function FloorCard({floor, level, garageId}: IFloorCard) {
+export default function FloorCard({spots, level, garageId}: IFloorCard) {
   const classes = useStyles();
   const title = level === 0 ? "Ground level" : `${level} level`
-  const totalSpots = floor.spots.length
-  const availableSpots = floor.spots.filter((spot: any) => spot.free).length
+  const totalSpots = spots.length
+  const availableSpots = spots.filter((spot: any) => spot.free).length
 
   
   return (

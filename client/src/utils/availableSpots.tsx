@@ -1,16 +1,19 @@
 import { VehicleTypes } from './commonInterfaces'
+import { Spot } from '../types/Spot'
 
 
-export const totalGarage = (garage: any) => {
+export const totalGarage = (garage: any, spots: Spot[]) => {
+    let totalPerFloorArr = []
 
-    const totalPerFloorArrays = garage.floors.map((floor: any) =>
-        floor.spots)
+    for(let floor = 0; floor < garage.noFloors; floor++) {
+        totalPerFloorArr.push(spots.filter((spot: Spot) => spot.floor === floor))
+    }
     
-    const freePerFloor = totalPerFloorArrays.map((floor: any) =>
+    const freePerFloor = totalPerFloorArr.map((floor: any) =>
         floor.filter((spot: any) =>
             spot.free).length)
         
-    const total = totalPerFloorArrays.map((floor: any) =>
+    const total = totalPerFloorArr.map((floor: any) =>
         floor.length).reduce((a: number, b: number) => a + b, 0)
     
     const free = freePerFloor.reduce((a: number, b: number) => a + b, 0)
@@ -19,38 +22,31 @@ export const totalGarage = (garage: any) => {
 }
 
 
-export const inGaragePerVehicle = (garage: any) => {
+export const inGaragePerVehicle = (spots: Spot[]) => {
     let spotsPerVehicle: any = {};
 
     for(const type in VehicleTypes) {
         if(isNaN(Number(type))) {
-            const totalPerFloor = garage.floors.map((floor: any) =>
-                floor.spots.filter((spot: any) =>
-                    spot.type === VehicleTypes[type]))
+            const totalArr = spots.filter((spot: any) =>
+                    spot.vehicleType === VehicleTypes[type])
             
-            const freePerFloor = totalPerFloor.map((floor: any) =>
-                floor.filter((spot: any) =>
-                    spot.free))
+            const free = totalArr.filter((spot: any) =>
+                    spot.free).length
+
+            const total = totalArr.length
               
-            const total = totalPerFloor.map((floor: any) =>
-                floor.length).reduce((a: number, b: number) => a + b, 0)
-            const free = freePerFloor.map((floor: any) =>
-                floor.length).reduce((a: number, b: number) => a + b, 0)
-        
             spotsPerVehicle[type] = { total, free}
         }
     }
     return spotsPerVehicle
 }
 
-export const onFloorPerVehicle = (floor: any) => {
+export const onFloorPerVehicle = (spots: any) => {
     let onFloorPerVehicle: any = {};
 
     for(const type in VehicleTypes) {
         if(isNaN(Number(type))) {
-            const total = floor.spots.filter((spot: any) =>
-                spot.type === VehicleTypes[type])
-            
+            const total = spots.filter((spot: any) => spot.vehicleType === VehicleTypes[type])
             const free = total.filter((spot: any) =>
                 spot.free)
             

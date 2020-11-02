@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "8f89c0c5-9606-4f2a-b8ee-b951f7acebc6",
+		"name": "ComparkNordic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getSpots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spots/1",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"spots",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllSpots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spots",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"spots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSpot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"garageId\": \"2\",\r\n    \"vehicleType\": \"4\",\r\n    \"floor\": \"0\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spots",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"spots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSpot",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spot/5df0d6c5-16f2-4a85-a0e9-aa42149e3ce1",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"spot",
+						"5df0d6c5-16f2-4a85-a0e9-aa42149e3ce1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateSpot",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ticketId\": \"12345\",\r\n    \"free\": false\r\n}"
+				},
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spot/5df0d6c5-16f2-4a85-a0e9-aa42149e3ce1",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"spot",
+						"5df0d6c5-16f2-4a85-a0e9-aa42149e3ce1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateTicket",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ticketId\": \"12345\",\r\n    \"free\": false\r\n}"
+				},
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/spot/5df0d6c5-16f2-4a85-a0e9-aa42149e3ce1",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"spot",
+						"5df0d6c5-16f2-4a85-a0e9-aa42149e3ce1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createTicket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"garageId\": \"2\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/tickets",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTicket",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/ticket/250f9bce-abf9-4085-a0bb-73c155b3520c",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"ticket",
+						"250f9bce-abf9-4085-a0bb-73c155b3520c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTickets",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{apiid}}.execute-api.eu-north-1.amazonaws.com/dev/tickets",
+					"protocol": "https",
+					"host": [
+						"{{apiid}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "385f813a-f933-4c29-a693-8b8209edb4b2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e01283b4-5cc4-482c-909b-88f28fb72d42",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "bcec7098-d401-4f97-9101-7d8747ab6fb7",
+			"key": "apiid",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
