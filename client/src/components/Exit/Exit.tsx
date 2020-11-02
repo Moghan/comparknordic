@@ -123,12 +123,17 @@ export function Exit({ garage, spots, tickets, rules, logoutTicket }: IExit) {
     setCode(event.target.value);
   }
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleConfirm()
+  }
+
   return (
     <div>
       <Typography variant="subtitle2" gutterBottom>
           Enter your tickets code and press logout.
       </Typography>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
         <div>
           <TextField
             onChange={handleChange}
