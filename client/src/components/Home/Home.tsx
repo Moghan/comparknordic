@@ -16,10 +16,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface IHome extends RouteComponentProps {
+  auth: any;
 }
 
 export function Home(props: IHome) {
   const classes = useStyles();
+  console.log("Home -> props.auth", props.auth)
 
   return (
     <div className={classes.root}>

@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import PersonAdd from '@material-ui/icons/PersonAdd';
 import Drawer from '../Drawer'
 import { Link } from '@reach/router'
 
@@ -28,7 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function PrimaryAppBar() {
+export interface IAppbar {
+    auth?: any;
+}
+
+
+export default function PrimaryAppBar(props: IAppbar) {
+    const { auth } = props
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -41,6 +48,11 @@ export default function PrimaryAppBar() {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
+
+    const handleSignIn = () => {
+        console.log("handleSignIn")
+        auth.login()
+    }
 
     const menuId = 'primary-account-menu';
     const renderMenu = (
@@ -58,29 +70,45 @@ export default function PrimaryAppBar() {
         </Menu>
     );
 
+    const loggedIn = false
+
     return (
         <div className={classes.grow}>
             <AppBar position="static">
                 <Toolbar>
-                <Drawer />
-                    <Typography  className={classes.title} variant="h6" noWrap>
+                    <Drawer />
+                    <Typography className={classes.title} variant="h6" noWrap>
                         <Link to="/" className={classes.homeButton}>
                             Compark Nordic
                         </Link>
                     </Typography>
-                <div className={classes.grow} />
-                <div>
-                    <IconButton
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpen}
-                        color="inherit"
-                    >
-                    <AccountCircle />
-                    </IconButton>
-                </div>
+                    <div className={classes.grow} />
+                    <div>
+                        {loggedIn ?
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            :
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleSignIn}
+                                color="inherit"
+                            >
+                                <PersonAdd />
+                            </IconButton>
+                        }
+
+                    </div>
                 </Toolbar>
             </AppBar>
             {renderMenu}

@@ -15,6 +15,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Breadcrumbs from './components/Breadcrumbs'
 import { loadDb } from './redux/actions'
 import { connect } from 'react-redux'
+import Auth from './auth/Auth'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,13 +27,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const auth = new Auth()
+
 function App({loadDb}: any) {
   const classes = useStyles();
   React.useEffect(loadDb, [])
 
   return (
     <div>
-      <AppBar />
+      <AppBar auth={auth} />
       <div className={classes.mainContainer}>
         <Router>
           <Breadcrumbs path="/garages/*" />
@@ -40,7 +43,7 @@ function App({loadDb}: any) {
       </div>
       <div className={classes.mainContainer}>
         <Router>
-          <Home path="/" />
+          <Home path="/" auth={auth} />
           <GaragesView path="/garages" />
           <About path="/about" />
           <Contact path="/contact" />
