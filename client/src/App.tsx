@@ -43,7 +43,9 @@ function App({loadDb}: any) {
 
   return (
     <div>
-      <AppBar auth={auth} />
+      <Router>
+        <AppBar default auth={auth} />
+      </Router>
       <div className={classes.mainContainer}>
         <Router>
           <Breadcrumbs path="/garages/*" />

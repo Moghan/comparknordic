@@ -9,7 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import Drawer from '../Drawer'
-import { Link } from '@reach/router'
+import { Link, RouteComponentProps } from "@reach/router"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export interface IAppbar {
+export interface IAppbar extends RouteComponentProps {
     auth?: any;
 }
 
@@ -70,8 +70,6 @@ export default function PrimaryAppBar(props: IAppbar) {
         </Menu>
     );
 
-    const loggedIn = false
-    console.log("Appbar - auth", auth)
     console.log("Appbar - auth.isAuthenticated", auth.isAuthenticated())
 
     return (
@@ -86,7 +84,7 @@ export default function PrimaryAppBar(props: IAppbar) {
                     </Typography>
                     <div className={classes.grow} />
                     <div>
-                        {loggedIn ?
+                        {auth.isAuthenticated() ?
                             <IconButton
                                 edge="end"
                                 aria-label="account of current user"

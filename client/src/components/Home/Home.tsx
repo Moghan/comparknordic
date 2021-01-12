@@ -22,6 +22,7 @@ export interface IHome extends RouteComponentProps {
 export function Home(props: IHome) {
   const classes = useStyles();
   console.log("Home -> props.auth", props.auth)
+  console.log("Home - auth.isAuthenticated", props.auth.isAuthenticated())
 
   return (
     <div className={classes.root}>
