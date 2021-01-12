@@ -1,5 +1,7 @@
 import auth0 from 'auth0-js';
 import { authConfig } from '../config';
+import { navigate } from "@reach/router";
+
 
 export default class Auth {
   accessToken;
@@ -11,7 +13,7 @@ export default class Auth {
     clientID: authConfig.clientId,
     redirectUri: authConfig.callbackUrl,
     responseType: 'token id_token',
-    scope: 'openid'
+    scopes: 'openid,profile,email'
   });
 
   // constructor(history) {
@@ -36,9 +38,11 @@ export default class Auth {
       if (authResult && authResult.accessToken && authResult.idToken) {
         console.log('Access token: ', authResult.accessToken)
         console.log('id token: ', authResult.idToken)
+        console.log('authresult: ', authResult)
         this.setSession(authResult);
       } else if (err) {
         // this.history.replace('/');
+        navigate('/')
         console.log("TODO: go to home")
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
@@ -66,6 +70,7 @@ export default class Auth {
 
     // navigate to the home route
     // this.history.replace('/');
+    navigate('/')
     console.log("setSession - TODO: go to home")
   }
 
@@ -96,6 +101,7 @@ export default class Auth {
 
     // navigate to the home route
     // this.history.replace('/');
+    navigate('/')
     console.log("logout - TODO: go to home")
   }
 

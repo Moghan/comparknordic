@@ -71,6 +71,8 @@ export default function PrimaryAppBar(props: IAppbar) {
     );
 
     const loggedIn = false
+    console.log("Appbar - auth", auth)
+    console.log("Appbar - auth.isAuthenticated", auth.isAuthenticated())
 
     return (
         <div className={classes.grow}>

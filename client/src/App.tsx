@@ -16,6 +16,7 @@ import Breadcrumbs from './components/Breadcrumbs'
 import { loadDb } from './redux/actions'
 import { connect } from 'react-redux'
 import Auth from './auth/Auth'
+import Callback from './components/Callback'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const auth = new Auth()
+
+const handleAuthentication = (props: any) => {
+  const location = props.location
+  if (/access_token|id_token|error/.test(location.hash)) {
+    auth.handleAuthentication()
+  }
+}
 
 function App({loadDb}: any) {
   const classes = useStyles();
@@ -44,6 +52,7 @@ function App({loadDb}: any) {
       <div className={classes.mainContainer}>
         <Router>
           <Home path="/" auth={auth} />
+          <Callback path="/callback" handleAuthentication={handleAuthentication} />
           <GaragesView path="/garages" />
           <About path="/about" />
           <Contact path="/contact" />
@@ -59,8 +68,9 @@ function App({loadDb}: any) {
   );
 }
 
-const mapStateToProps = ({root: {app}}: any) => {
-  console.log("state", app)
+const mapStateToProps = ({root: {app, profile}}: any) => {
+  console.log("state.app", app)
+  console.log("state.profile", profile)
   return {}
 }
 

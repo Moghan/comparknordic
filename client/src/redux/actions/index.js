@@ -8,6 +8,7 @@ export const RESERVE_SPOT = 'RESERVE_SPOT'
 export const DELETE_SPOT = 'DELETE_SPOT'
 export const LOGOUT_TICKET = 'LOGOUT_TICKET'
 export const LOAD_DB = 'LOAD_DB'
+export const SET_USER = 'SET_USER'
 
 const reserveSpot = (garageId, vehicleType, id) => ({
   type: RESERVE_SPOT,
@@ -63,3 +64,7 @@ export const addTicket = (garageId, vehicleType, ticketId) => {
     }
   }
 }
+
+export const setUser = () => ({
+  type: SET_USER
+})
