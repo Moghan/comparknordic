@@ -7,11 +7,14 @@
   },
   "dependencies": {
     "aws-xray-sdk": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "source-map-support": "^0.5.11",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/node": "^10.12.18",
     "@types/serverless": "^1.72.5",
     "aws-sdk": "^2.433.0",
